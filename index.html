@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Search Form</title>
+    <link rel="stylesheet" href="/assets/styles.css" />
+  </head>
+  <body>
+    <form id="searchForm">
+      <input
+        type="text"
+        id="searchQuery"
+        name="query"
+        placeholder="Search..."
+        />
+      <button type="submit">Search</button>
+    </form>
+    <form id="enqueueForm">
+      <input type="text" id="enqueueInput" name="enqueue" placeholder="enqueue..." />
+      <button type="submit">Enqueue</button>
+    </form>
+    <div id="enqueueResult"></div>
+    <div id="results"></div>
+    <script>
+      document.getElementById('enqueueForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        console.log('enqueue');
+        const q = document.getElementById('enqueueInput').value;
+        fetch('/enqueue', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ links: [q] })
+        })
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('enqueueResult').innerHTML = data;
+        })
+        .catch(error => {
+          document.getElementById('enqueueResult').innerHTML = '<p>An error occurred</p>';
+        });
+      });
+
+      document.getElementById('searchForm').addEventListener('submit', function(event) {
+        event.preventDefault();
+        const q = document.getElementById('searchQuery').value;
+        fetch('/search', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ q })
+        })
+        .then(response => response.json())
+        .then(data => {
+          let results = '<ul>';
+          data.forEach(item => {
+            results += '<li><a href="' + item.href + '">' + item.title + '</a></li>';
+          });
+          results += '</ul>';
+          document.getElementById('results').innerHTML = results;
+        })
+        .catch(error => {
+          document.getElementById('results').innerHTML = '<p>An error occurred</p>';
+        });
+      });
+    </script>
+  </body>
+</html>

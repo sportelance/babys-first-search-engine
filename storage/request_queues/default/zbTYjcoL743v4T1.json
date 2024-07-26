@@ -1,0 +1,9 @@
+{
+	"id": "zbTYjcoL743v4T1",
+	"json": "{\"id\":\"zbTYjcoL743v4T1\",\"url\":\"https://www.example.com\",\"loadedUrl\":\"https://www.example.com/\",\"uniqueKey\":\"https://www.example.com\",\"method\":\"GET\",\"noRetry\":false,\"retryCount\":0,\"errorMessages\":[],\"headers\":{},\"userData\":{\"__crawlee\":{\"state\":4}},\"handledAt\":\"2024-07-26T02:08:07.940Z\"}",
+	"method": "GET",
+	"orderNo": null,
+	"retryCount": 0,
+	"uniqueKey": "https://www.example.com",
+	"url": "https://www.example.com"
+}
