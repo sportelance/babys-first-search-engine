@@ -1,19 +1,23 @@
 <!doctype html>
 <html>
   <head>
-    <title>Search Form</title>
+    <title>Baby's first search engine</title>
     <link rel="stylesheet" href="/assets/styles.css" />
   </head>
   <body>
+    <div class="container">
+      <h3>Baby's first search engine</h3>
     <form id="search-form">
       <input
         type="text"
         id="search-query"
         name="query"
-        placeholder="Search..."
-        />
+        placeholder="Search..." />
       <button type="submit">Search</button>
     </form>
+    <div id="total-results"></div>
+    <div id="results"></div>
+  </div>
     <form id="enqueue-form">
       <input type="text" id="enqueue-input" name="enqueue" placeholder="link to enqueue" />
       <input type="text" id="crawl-name" name="crawl-name" placeholder="name of this indexed crawl" />
@@ -23,8 +27,6 @@
     <div id="enqueue-result">
 
     </div>
-    <span>Search result</span>
-    <div id="results"></div>
-<script src="/assets/script.js"></script>
+    <script src="/assets/script.js"></script>
   </body>
 </html>

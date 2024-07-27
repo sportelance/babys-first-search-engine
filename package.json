@@ -46,6 +46,7 @@
     "crawlee": "^3.11.1",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "express-validator": "^7.1.0",
     "hono": "^4.5.1",
     "metascraper": "^5.45.22",
     "metascraper-author": "^5.45.22",
@@ -57,6 +58,8 @@
     "metascraper-publisher": "^5.45.22",
     "metascraper-title": "^5.45.22",
     "metascraper-url": "^5.45.22",
-    "puppeteer": "^22.14.0"
+    "nanoid": "^5.0.7",
+    "puppeteer": "^22.14.0",
+    "winston": "^3.13.1"
   }
 }

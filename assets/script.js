@@ -34,11 +34,12 @@
         .then(response => response.json())
         .then(data => {
           let results = '<ul>';
-          data.forEach(item => {
+          data.results.forEach(item => {
             results += '<li><a href="' + item.href + '">' + item.title + '</a></li>';
           });
           results += '</ul>';
           document.getElementById('results').innerHTML = results;
+          document.getElementById('total-results').innerHTML = "total results: " + data.totalResults;
         })
         .catch(error => {
           document.getElementById('results').innerHTML = '<p>An error occurred</p>';
