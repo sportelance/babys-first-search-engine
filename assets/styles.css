@@ -95,10 +95,13 @@ h3,
 h4,
 h5,
 h6 {
+  font-style: italic;
   margin: 0 0 0.5rem 0;
   font-size: 1.5rem;
   text-transform: uppercase;
 }
+
+h3 {}
 
 h1 {
   font-size: 2rem;
@@ -134,6 +137,9 @@ form {
   display: flex;
   flex-direction: row;
   gap: 0.5rem;
+  align-items: flex-start;
+  justify-content: center;
+  display: inline-flex;
 }
 
 input,
@@ -158,20 +164,34 @@ select {
 }
 
 button {
-  display: inline-block;
+  /* display: inline-block; */
   width: auto;
   flex-basis: content;
   flex-shrink: initial;
   /* flex-flow: row; */
-
-  display: inline-block;
+  /* display: inline-block; */
   flex: auto;
   color: #2e2e2e;
   text-shadow: 1px 1px 1px #fff;
   transition: all .25s ease-in-out;
   cursor: pointer;
   font-style: italic;
-    
+}
+
+button#search-button {
+    /* font-size: 1.15em; */
+    padding: .9em 1.1em;
+}
+
+button {}
+
+button#submit-enqueue {
+    width: auto;
+    /* display: inline-block; */
+    align-self: flex-start;
+    display: inline-flex;
+    /* width: min-content; */
+    padding: .65em 1em;
 }
 
 button:hover {
@@ -201,7 +221,27 @@ pre {
   padding: 0.5rem;
   border-radius: 4px;
 }
-
+.tab {
+  display: none;
+}
+.tab.active {
+  display: block;
+}
+.tab-buttons {
+  display: flex;
+  cursor: pointer;
+}
+a {
+  color:#247ba0;
+}
+.tab-buttons div {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-bottom: none;
+}
+.tab-buttons div.active {
+  background-color: #ddd;
+}
 article,
 section,
 aside,

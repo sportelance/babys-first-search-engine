@@ -1,7 +1,7 @@
 import express from 'express';
 import dotenv from 'dotenv';
 import fs from 'node:fs/promises';
-import { writeLog } from './lib/log.js';
+import { writeLog, createLogEmitter, removeLogEmitter } from './lib/log.js';
 import enqueueCrawl from './lib/crawl.js';
 import { push, search } from './lib/db.js';
 import { validateEnqueue, validateSearch, validateSubmit } from './lib/validators.js';
@@ -55,12 +55,12 @@ app.post("/enqueue", validateEnqueue, async (req, res) => {
   const { links, crawlName } = req.body;
 
   try {
-    await enqueueCrawl(links, crawlName);
+    let id = await enqueueCrawl(links, crawlName);
     writeLog("Crawl started successfully");
-    res.status(202).json({ links, message: "Crawl started" });
+    res.status(202).json({ links, message: "Crawl started", crawlId: id });
   } catch (error) {
     writeLog("Failed to start crawl:", error);
-    res.status(500).json({ message: "Failed to start crawl" });
+    res.status(500).json({ message: `Failed to start crawl: ${error}` });
   }
 });
 
@@ -87,7 +87,29 @@ app.post("/search", validateSearch, async (req, res) => {
     res.status(500).json({ error: "Error searching documents" });
   }
 });
+// SSE endpoint for real-time log updates for a specific crawl ID
+app.get('/logs/stream/:crawlId', (req, res) => {
+  const { crawlId } = req.params;
+  const logEmitter = createLogEmitter(crawlId);
 
+  res.setHeader('Content-Type', 'text/event-stream');
+  res.setHeader('Cache-Control', 'no-cache');
+  res.setHeader('Connection', 'keep-alive');
+  res.flushHeaders(); // flush the headers to establish SSE with the client
+
+  const logListener = (log) => {
+    res.write(`data: ${JSON.stringify(log)}\n\n`);
+  };
+
+  logEmitter.on('log', logListener);
+
+  // Remove listener and emitter on client disconnect
+  req.on('close', () => {
+    logEmitter.removeListener('log', logListener);
+    removeLogEmitter(crawlId);
+    res.end();
+  });
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running on port ${PORT}`);
