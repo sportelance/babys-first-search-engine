@@ -42,11 +42,10 @@
     "crawlee": "^3.11.1",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
+    "express-rate-limit": "^7.4.0",
     "express-validator": "^7.1.0",
-  
     "metascraper": "^5.45.22",
     "metascraper-author": "^5.45.22",
-
     "metascraper-date": "^5.45.22",
     "metascraper-description": "^5.45.22",
     "metascraper-image": "^5.45.22",
