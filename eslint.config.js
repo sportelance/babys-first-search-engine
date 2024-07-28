@@ -1,4 +1,4 @@
-import js from "@eslint/js";
+import js from "@eslint/js"
 import perfectionistNatural from "eslint-plugin-perfectionist"
 import is from "eslint-plugin-simple-import-sort"
 import eslintPluginUnicorn from "eslint-plugin-unicorn"
@@ -10,6 +10,10 @@ export default [
     files: ["**/*.js"],
     languageOptions: {
       ecmaVersion: 2024,
+      globals: {
+        console: true,
+        process: true
+      },
       sourceType: "module"
     },
     plugins: {
