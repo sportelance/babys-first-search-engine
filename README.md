@@ -1,7 +1,7 @@
 # Baby's First Search Engine
 > how hard could building it actually be?
 
-![](./logo-search.jpg)
+![](./.github/logo-search.jpg)
 
 **July '24**
 
