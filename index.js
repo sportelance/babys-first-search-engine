@@ -1,9 +1,10 @@
-import express from 'express';
 import dotenv from 'dotenv';
+import express from 'express';
 import fs from 'node:fs/promises';
-import { writeLog, createLogEmitter, removeLogEmitter } from './lib/log.js';
+
 import enqueueCrawl from './lib/crawl.js';
 import { push, search } from './lib/db.js';
+import { createLogEmitter, removeLogEmitter,writeLog } from './lib/log.js';
 import { validateEnqueue, validateSearch, validateSubmit } from './lib/validators.js';
 // Load environment variables from .env file
 dotenv.config();
@@ -19,19 +20,19 @@ app.use(express.json());
 app.use('/assets', express.static('./assets'));
 
 // Serve index.html
-app.get("/", async (req, res) => {
+app.get("/", async (request, res) => {
   try {
     const htmlContent = await fs.readFile('index.html', 'utf8');
     res.header('Content-Type', 'text/html').send(htmlContent);
-  } catch (error) {
+  } catch {
     res.status(500).send("Error reading index.html");
   }
 });
 
 // Endpoint to submit items to Elasticsearch
-app.post("/submit", validateSubmit, async (req, res) => {
+app.post("/submit", validateSubmit, async (request, res) => {
   try {
-    const { content, href, index, title } = req.body;
+    const { content, href, index, title } = request.body;
     let response = await push({ content, href, index, title });
     res.status(200).json(response);
   } catch (error) {
@@ -41,23 +42,23 @@ app.post("/submit", validateSubmit, async (req, res) => {
 });
 
 // Endpoint to read logs
-app.get("/logs", async (req, res) => {
+app.get("/logs", async (request, res) => {
   try {
     const logs = await fs.readFile('logs.txt', 'utf8');
     res.json({ logs });
-  } catch (error) {
+  } catch {
     res.status(500).json({ error: "Error reading logs" });
   }
 });
 
 // Endpoint to enqueue crawl
-app.post("/enqueue", validateEnqueue, async (req, res) => {
-  const { links, crawlName } = req.body;
+app.post("/enqueue", validateEnqueue, async (request, res) => {
+  const { crawlName, links } = request.body;
 
   try {
     let id = await enqueueCrawl(links, crawlName);
     writeLog("Crawl started successfully");
-    res.status(202).json({ links, message: "Crawl started", crawlId: id });
+    res.status(202).json({ crawlId: id, links, message: "Crawl started" });
   } catch (error) {
     writeLog("Failed to start crawl:", error);
     res.status(500).json({ message: `Failed to start crawl: ${error}` });
@@ -65,9 +66,9 @@ app.post("/enqueue", validateEnqueue, async (req, res) => {
 });
 
 // Endpoint to query Elasticsearch
-app.get("/search", validateSearch, async (req, res) => {
+app.get("/search", validateSearch, async (request, res) => {
   try {
-    const { q } = req.query;
+    const { q } = request.query;
     let response = await search(q);
     res.status(200).json(response.body.hits.hits);
   } catch (error) {
@@ -76,8 +77,8 @@ app.get("/search", validateSearch, async (req, res) => {
   }
 });
 
-app.post("/search", validateSearch, async (req, res) => {
-  const { q } = req.body;
+app.post("/search", validateSearch, async (request, res) => {
+  const { q } = request.body;
 
   try {
     let response = await search(q);
@@ -88,8 +89,8 @@ app.post("/search", validateSearch, async (req, res) => {
   }
 });
 // SSE endpoint for real-time log updates for a specific crawl ID
-app.get('/logs/stream/:crawlId', (req, res) => {
-  const { crawlId } = req.params;
+app.get('/logs/stream/:crawlId', (request, res) => {
+  const { crawlId } = request.params;
   const logEmitter = createLogEmitter(crawlId);
 
   res.setHeader('Content-Type', 'text/event-stream');
@@ -104,7 +105,7 @@ app.get('/logs/stream/:crawlId', (req, res) => {
   logEmitter.on('log', logListener);
 
   // Remove listener and emitter on client disconnect
-  req.on('close', () => {
+  request.on('close', () => {
     logEmitter.removeListener('log', logListener);
     removeLogEmitter(crawlId);
     res.end();

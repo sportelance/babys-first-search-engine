@@ -7,15 +7,14 @@
   "bin": "./index.js",
   "type": "module",
   "devDependencies": {
-    "@stylistic/eslint-plugin-js": "^2.3.0",
-    "eslint": "^9.7.0",
+    "@stylistic/eslint-plugin-js": "^2.4.0",
+    "eslint": "^9.8.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-perfectionist": "^3.0.0",
     "eslint-plugin-prettier": "^5.2.1",
     "eslint-plugin-simple-import-sort": "^12.1.1",
     "eslint-plugin-unicorn": "^55.0.0",
-    "prettier": "^3.3.3",
-    "release-it": "^17.6.0"
+    "prettier": "^3.3.3"
   },
   "prettier": {
     "arrowParens": "always",
@@ -47,7 +46,7 @@
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
     "express-validator": "^7.1.0",
-    "hono": "^4.5.1",
+    "hono": "^4.5.2",
     "metascraper": "^5.45.22",
     "metascraper-author": "^5.45.22",
     "metascraper-clearbit": "^5.45.22",

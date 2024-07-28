@@ -1,10 +1,10 @@
 import js from "@eslint/js";
-import perfectionistNatural from "eslint-plugin-perfectionist/configs/recommended-natural"
+import perfectionistNatural from "eslint-plugin-perfectionist"
 import is from "eslint-plugin-simple-import-sort"
 import eslintPluginUnicorn from "eslint-plugin-unicorn"
 export default [
   eslintPluginUnicorn.configs["flat/recommended"],
-  perfectionistNatural,
+
   js.configs.recommended,
   {
     files: ["**/*.js"],
@@ -13,6 +13,7 @@ export default [
       sourceType: "module"
     },
     plugins: {
+      perfectionist: perfectionistNatural,
       "simple-import-sort": is
     },
 
