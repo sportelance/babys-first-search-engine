@@ -15,6 +15,9 @@ Things I find interesting that I want to save for my own gawking:
  - forum posts about creating patinas on metal 
  - shitty things politicians say on social media
  - funny jokes in a facebook group
+ 
+### Main (pancake) stack info
+It's a Node (`express`) http server that runs a `crawlee` scraper, and serves up a static html front-end. `Crawlee` saves documents to `elasticsearch`, which I run in `docker-compose`.
 
 ### Intention
 Each crawl should be named so that I can comment on it and remember why I indexed it, and why I find it interesting.
