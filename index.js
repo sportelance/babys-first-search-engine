@@ -1,5 +1,5 @@
 import dotenv from 'dotenv';
-import expresponses from 'expresponses';
+import express from 'express';
 import fs from 'node:fs/promises';
 
 import enqueueCrawl from './lib/crawl.js';
@@ -9,15 +9,15 @@ import { validateEnqueue, validateSearch, validateSubmit } from './lib/validator
 // Load environment variables from .env file
 dotenv.config();
 
-const app = expresponses();
+const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware to parse JSON
-app.use(expresponses.json());
+app.use(express.json());
 
 
 // Serve static files
-app.use('/assets', expresponses.static('./assets'));
+app.use('/assets', express.static('./assets'));
 
 // Serve index.html
 app.get("/", async (request, response) => {
@@ -33,8 +33,8 @@ app.get("/", async (request, response) => {
 app.post("/submit", validateSubmit, async (request, response) => {
   try {
     const { content, href, index, title } = request.body;
-    const responseponse = await push({ content, href, index, title });
-    response.status(200).json(responseponse);
+    const response = await push({ content, href, index, title });
+    response.status(200).json(response);
   } catch (error) {
     writeLog("Error indexing document:", error);
     response.status(500).json({ error: "Error indexing document" });
@@ -69,8 +69,8 @@ app.post("/enqueue", validateEnqueue, async (request, response) => {
 app.get("/search", validateSearch, async (request, response) => {
   try {
     const { q } = request.query;
-    const responseponse = await search(q);
-    response.status(200).json(responseponse.body.hits.hits);
+    const response = await search(q);
+    response.status(200).json(response.body.hits.hits);
   } catch (error) {
     writeLog("Error searching documents:", error);
     response.status(500).json({ error: "Error searching documents" });
@@ -81,8 +81,8 @@ app.post("/search", validateSearch, async (request, response) => {
   const { q } = request.body;
 
   try {
-    const responseponse = await search(q);
-    response.status(200).json(responseponse);
+    const response = await search(q);
+    response.status(200).json(response);
   } catch (error) {
     console.error("Error searching documents:", error);
     response.status(500).json({ error: "Error searching documents" });
