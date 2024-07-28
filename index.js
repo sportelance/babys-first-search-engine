@@ -2,9 +2,10 @@ import dotenv from 'dotenv';
 import express from 'express';
 import fs from 'node:fs/promises';
 import rateLimit from 'express-rate-limit';
+import cors from 'cors';
 
 import enqueueCrawl from './lib/crawl.js';
-import { push, search } from './lib/database.js';
+import { push, search, getUniqueCrawlNames } from './lib/database.js';
 import { createLogEmitter, removeLogEmitter, writeLog } from './lib/log.js';
 import { validateEnqueue, validateSearch, validateSubmit } from './lib/validators.js';
 
@@ -16,6 +17,9 @@ const PORT = process.env.PORT || 3000;
 
 // Middleware to parse JSON
 app.use(express.json());
+
+// Middleware to enable CORS
+app.use(cors());
 
 // Define rate limiter
 const limiter = rateLimit({
@@ -100,6 +104,16 @@ app.post("/search", validateSearch, async (request, response) => {
   }
 });
 
+app.get("/stats",  async (request, response) => {
+  
+  try {
+    const results = await getUniqueCrawlNames();
+    response.status(200).json({uniqueCrawlNames: results});
+  } catch (error) {
+    console.error("Error searching documents:", error);
+    response.status(500).json({ error: "Error searching documents" });
+  }
+});
 // SSE endpoint for real-time log updates for a specific crawl ID
 app.get('/logs/stream/:crawlId', (request, response) => {
   const { crawlId } = request.params;

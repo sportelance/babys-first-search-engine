@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-
+import "./Tabs.css"
 const Tabs = ({ children }) => {
   const [activeIndex, setActiveIndex] = useState(0)
 

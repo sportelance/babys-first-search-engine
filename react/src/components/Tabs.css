@@ -1,0 +1,35 @@
+.tab.active {
+  display: block;
+  overflow: hidden;
+}
+.tab-buttons {
+  display: flex;
+  cursor: pointer;
+}
+.tab-buttons div {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-bottom: none;
+}
+.tab-buttons div.active {
+  background-color: #ddd;
+}
+.tab.inactive {
+  position: absolute;
+  opacity: 0;
+  z-index:0;
+  transition: opacity 0.5s;
+}
+.tab.active {
+  position: relative;
+  opacity: 1;
+  z-index: 1;
+  transition: opacity 0.5s;
+}
+.tabs {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+
+}

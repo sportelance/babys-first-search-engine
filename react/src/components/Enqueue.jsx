@@ -1,23 +1,36 @@
-import react, { useState } from "react"
-import UseCrawlLog from "./UseCrawlLog"
-const Enqueue = () => {
-  const [enqueueResult, setEnqueueResult] = useState("")
+import React, { useState } from "react";
+import UseCrawlLog from "./UseCrawlLog";
 
-  const { CrawlLog, startLogStream } = UseCrawlLog()
+const Enqueue = () => {
+  const [enqueueResult, setEnqueueResult] = useState("");
+  const [enqueueInput, setEnqueueInput] = useState("");
+  const [crawlName, setCrawlName] = useState("");
+  const [maxRequests, setMaxRequests] = useState(-1);
+  const [reIndexDuplicates, setReIndexDuplicates] = useState(false);
+  const [errors, setErrors] = useState({});
+
+  const { CrawlLog, startLogStream } = UseCrawlLog();
+
+  const validate = () => {
+    const errors = {};
+    if (!enqueueInput) errors.enqueueInput = "Link is required";
+    if (!crawlName) errors.crawlName = "Crawl name is required";
+    //if (maxRequests < 1) errors.maxRequests = "Max requests must be greater than 0";
+    return errors;
+  };
 
   const handleEnqueueSubmit = async (e) => {
-    e.preventDefault()
-    setEnqueueResult("Enqueuing...")
+    e.preventDefault();
+    const validationErrors = validate();
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
 
-    const enqueueInput = document.getElementById("enqueue-input").value
-    const crawlName = document.getElementById("crawl-name").value
-    const maxRequests = document.getElementById("max-requests").value
-    const reIndexDuplicates = document.getElementById(
-      "re-index-duplicates"
-    ).checked
+    setEnqueueResult("Enqueuing...");
 
     try {
-      const response = await fetch("/enqueue", {
+      const response = await fetch("http://localhost:3000/enqueue", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -26,32 +39,42 @@ const Enqueue = () => {
           maxRequests,
           reIndexDuplicates
         })
-      })
-      const data = await response.json()
-      setEnqueueResult(JSON.stringify(data, null, 2))
+      });
+      const data = await response.json();
+      setEnqueueResult(JSON.stringify(data, null, 2));
       if (data.crawlId) {
-        startLogStream(data.crawlId)
+        startLogStream(data.crawlId);
       }
     } catch (error) {
-      setEnqueueResult("<p>An error occurred</p>")
+      setEnqueueResult("<p>An error occurred</p>");
     }
-  }
+  };
 
   return (
     <div className="tab">
       <form onSubmit={handleEnqueueSubmit}>
         <div className="input">
-          <input type="text" id="enqueue-input" placeholder="Link to enqueue" />
+          <input
+            type="text"
+            id="enqueue-input"
+            value={enqueueInput}
+            onChange={(e) => setEnqueueInput(e.target.value)}
+            placeholder="Link to enqueue"
+          />
           <label htmlFor="enqueue-input">Link</label>
+          {errors.enqueueInput && <span className="error">{errors.enqueueInput}</span>}
         </div>
         <div className="input">
           <input
             type="text"
             id="crawl-name"
+            value={crawlName}
+            onChange={(e) => setCrawlName(e.target.value)}
             required
             placeholder="Name of this indexed crawl"
           />
           <label htmlFor="crawl-name">Name of this indexed crawl</label>
+          {errors.crawlName && <span className="error">{errors.crawlName}</span>}
         </div>
         <div className="input">
           <input
@@ -66,10 +89,12 @@ const Enqueue = () => {
           <input
             type="number"
             id="max-requests"
-            defaultValue="-1"
+            value={maxRequests}
+            onChange={(e) => setMaxRequests(Number(e.target.value))}
             placeholder="Max requests"
           />
           <label htmlFor="max-requests">Max requests</label>
+          {errors.maxRequests && <span className="error">{errors.maxRequests}</span>}
         </div>
         <div className="input">
           <input
@@ -81,7 +106,12 @@ const Enqueue = () => {
           <label htmlFor="max-time">Max time</label>
         </div>
         <div className="input">
-          <input type="checkbox" id="re-index-duplicates" />
+          <input
+            type="checkbox"
+            id="re-index-duplicates"
+            checked={reIndexDuplicates}
+            onChange={(e) => setReIndexDuplicates(e.target.checked)}
+          />
           <label htmlFor="re-index-duplicates">Re-index duplicates?</label>
         </div>
         <button type="submit">Enqueue</button>
@@ -94,7 +124,7 @@ const Enqueue = () => {
       </div>
       <CrawlLog />
     </div>
-  )
-}
+  );
+};
 
-export default Enqueue
+export default Enqueue;

@@ -5,7 +5,7 @@ const UseCrawlLog = () => {
     const [logMessages, setLogMessages] = useState([])
     const [eventSource, setEventSource] = useState(null)
     const startLogStream = (crawlId) => {
-        const newEventSource = new EventSource(`/logs/stream/${crawlId}`)
+        const newEventSource = new EventSource(`http://localhost:3000/logs/stream/${crawlId}`)
         setEventSource(newEventSource)
         setLogMessages([])
     

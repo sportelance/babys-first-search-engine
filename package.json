@@ -45,6 +45,7 @@
   },
   "dependencies": {
     "@elastic/elasticsearch": "^8.14.0",
+    "cors": "^2.8.5",
     "crawlee": "^3.11.1",
     "dotenv": "^16.4.5",
     "express": "^4.19.2",
