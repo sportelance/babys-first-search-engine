@@ -5,13 +5,14 @@ document.getElementById('enqueue-form').addEventListener('submit', function(even
 
   const q = document.getElementById('enqueue-input').value;
   const crawlName = document.getElementById('crawl-name').value;
-
+  const maxRequests = document.getElementById('"max-requests').value;
+  const reIndexDuplicates = document.getElementById('re-index-duplicates').checked;
   fetch('/enqueue', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ links: [q], crawlName: crawlName })
+    body: JSON.stringify({ links: [q], crawlName: crawlName, maxRequests: maxRequests, reIndexDuplicates: reIndexDuplicates })
   })
   .then(response => response.json())
   .then(data => {
@@ -19,7 +20,7 @@ document.getElementById('enqueue-form').addEventListener('submit', function(even
     if (data.crawlId) {
       startLogStream(data.crawlId);
     }
-    hljs.highlightAll();
+  //  hljs.highlightAll();
   })
   .catch(error => {
     enqueueResultElement.innerHTML = '<p>An error occurred</p>';
@@ -82,23 +83,36 @@ window.addEventListener('beforeunload', function() {
   }
 });
 
-// Tab functionality
-document.getElementById('search-tab-btn').addEventListener('click', function() {
-  showTab('search-tab');
+const tabButtons = document.querySelectorAll(".tab-buttons > *");
+
+const removeAllActiveClasses = () => {
+  tabButtons.forEach((tabButton) => {
+    tabButton.classList.remove("active");
+  });
+};
+
+[...tabButtons].forEach((tabButton) => {
+  
+  tabButton.addEventListener("click", () => {
+    removeAllActiveClasses();
+    tabButton.classList.add("active");
+    const tabName = tabButton.dataset.tabIndicated;
+    showTab(tabName);
+  });
 });
 
-document.getElementById('enqueue-tab-btn').addEventListener('click', function() {
-  showTab('enqueue-tab');
-});
 
 function showTab(tabId) {
   document.querySelectorAll('.tab').forEach(tab => {
     tab.classList.remove('active');
+    if(tab.dataset.tab === tabId) {
+      tab.classList.add('active');
+    }
   });
-  document.getElementById(tabId).classList.add('active');
+ // document.getElementById(tabId).classList.add('active');
   
-  document.querySelectorAll('.tab-buttons div').forEach(tabBtn => {
-    tabBtn.classList.remove('active');
-  });
-  document.getElementById(`${tabId}-btn`).classList.add('active');
+  //document.querySelectorAll('.tab-buttons div').forEach(tabBtn => {
+ //   tabBtn.classList.remove('active');
+//  });
+//  document.getElementById(`${tabId}-btn`).classList.add('active');
 }

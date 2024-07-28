@@ -64,10 +64,10 @@ app.get("/logs", async (request, response) => {
 
 // Endpoint to enqueue crawl
 app.post("/enqueue", validateEnqueue, async (request, response) => {
-  const { crawlName, links } = request.body;
+  const { crawlName, links, maxRequests, reIndexDuplicates } = request.body;
 
   try {
-    const id = await enqueueCrawl(links, crawlName);
+    const id = await enqueueCrawl({crawlName, links, maxRequests, reIndexDuplicates});
     writeLog("Crawl started successfully");
     response.status(202).json({ crawlId: id, links, message: "Crawl started" });
   } catch (error) {

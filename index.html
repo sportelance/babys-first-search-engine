@@ -8,47 +8,121 @@
   <body>
     <div class="container">
       <h3>Baby's First Search Engine</h3>
-      
+
       <div class="tab-buttons">
-        <div id="search-tab-btn" class="active">Search</div>
-        <div id="enqueue-tab-btn">Enqueue</div>
+        <div data-tab-indicated="search" id="search-tab-btn" class="active">
+          Search
+        </div>
+        <div data-tab-indicated="enqueue" id="enqueue-tab-btn">Enqueue</div>
+        <div data-tab-indicated="info" id="info-tab-btn">Info</div>
       </div>
-      
-      <div id="search-tab" class="tab active">
+
+      <div id="search-tab" data-tab="search" class="tab active">
         <form id="search-form">
-          <input type="text" id="search-query" name="query" placeholder="Search..." />
+          <div class="input">
+            <input
+              type="text"
+              id="search-query"
+              name="query"
+              placeholder="Search..." />
+            <label for="search-query">Query</label>
+          </div>
           <button id="search-button" type="submit">go</button>
         </form>
-        
+
         <div id="total-results"></div>
         <div id="results"></div>
       </div>
-      
-      <div id="enqueue-tab" class="tab">
+
+      <div id="enqueue-tab" data-tab="enqueue" class="tab">
         <form id="enqueue-form">
-          <input type="text" id="enqueue-input" name="enqueue" placeholder="Link to enqueue" />
-          <input type="text" id="crawl-name" name="crawl-name" placeholder="Name of this indexed crawl" />
+          <div class="input">
+            <input
+              type="text"
+              id="enqueue-input"
+              name="enqueue"
+              placeholder="Link to enqueue" />
+            <label for="enqueue-input">Link</label>
+          </div>
+
+          <!-- name of this crawl -->
+          <div class="input">
+            <input
+              type="text"
+              id="crawl-name"
+              name="crawl-name"
+              required
+              placeholder="Name of this indexed crawl" />
+            <label for="crawl-name">Name of this indexed crawl</label>
+          </div>
+          <!-- max depth -->
+          <div class="input">
+            <input
+              type="number"
+              id="max-depth"
+              value="-1"
+              name="max-depth"
+              placeholder="Max depth" />
+            <label for="max-depth">Max depth</label>
+          </div>
+          <!-- max requests-->
+          <div class="input">
+            <input
+              type="number"
+              id="max-requests"
+              name="max-requests"
+              value="-1"
+              placeholder="Max requests" />
+            <label for="max-requests">Max requests</label>
+          </div>
+
+          <!-- max time -->
+          <div class="input">
+            <input
+              type="number"
+              id="max-time"
+              name="max-time"
+              value="-1"
+              placeholder="Max time" />
+            <label for="max-time">Max time</label>
+          </div>
+
+          <!-- re-index duplicates? -->
+          <div class="input">
+            <input
+              type="checkbox"
+              id="re-index-duplicates"
+              name="re-index-duplicates" />
+            <label for="re-index-duplicates">Re-index duplicates?</label>
+          </div>
           <button id="submit-enqueue" type="submit">Enqueue</button>
         </form>
-        
+
         <div>
           <span>Enqueuing result</span>
-          <code class="language-json"><pre><div id="enqueue-result"></div></pre></code>
-          
+          <code class="language-json">
+            <pre><div id="enqueue-result"></div></pre>
+          </code>
         </div>
-        
+
         <div>
           <h4>Crawl Log</h4>
-          <div id="log-container" style="height: 200px; overflow-y: auto; border: 1px solid #ccc; padding: 10px;"></div>
+          <div
+            id="log-container"
+            style="
+              height: 200px;
+              overflow-y: auto;
+              border: 1px solid #ccc;
+              padding: 10px;
+            "></div>
         </div>
       </div>
+      <div id="info-tab" data-tab="info" class="tab">
+        <p>to be continued</p>
+      </div>
     </div>
-    
+
     <script src="/assets/script.js"></script>
     <script src="/assets/highlight.min.js"></script>
-
-      
-
-  
   </body>
 </html>

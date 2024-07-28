@@ -22,8 +22,31 @@ Each crawl should be named so that I can comment on it and remember why I indexe
 ### Information gleaned
 Currently, Crawlee will run using Puppeteer and recursively scrape any links it finds, attempt to parse and save html (would include rendered js elements), as well as save the raw source. This seems like it would take up a lot of space. What should I actually do?
 
-### Thoughts/roadmap
+### Getting Started
 
+Clone the repo:
+
+`git clone git@github.com:elliotberry/babys-first-search-engine.git`
+
+Get in there and install deps
+
+`cd babys-first-search-engine && npm install`
+
+Run server:
+
+`node index.js`
+
+Open a new tab and run docker compose to get elasticsearch running:
+
+`docker compose up -d`
+
+You should now be able to open `locahost:3000` in your browser and see the search engine.
+
+### Thoughts/roadmap
+- make fuzzy search clearer
+- keep links to one domain
+- fix duplication of lynx
+- fix pagination
 - I don't really like express. I'd prefer Hono, but it doesn't seem to "just work." 
 - I'm toying with using React for the front-end, but I also really like the idea of a super-simple, no-frills html setup.
 - Right now logging sucks, winston is setup in kind of a haphazard way, and crawl status is gleaned by streaming from the live log file. This is not ideal, and should use a db, but I do think monitoring crawling is important.

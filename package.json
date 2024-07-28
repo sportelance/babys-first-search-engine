@@ -37,6 +37,12 @@
     "useTabs": false,
     "embeddedLanguageFormatting": "auto"
   },
+  "scripts": {
+    "start": "pm2 start prod.pm2.json",
+    "dev": "pm2 start dev.pm2.json",
+    "lint": "eslint . --ext .js",
+    "format": "prettier --write ."
+  },
   "dependencies": {
     "@elastic/elasticsearch": "^8.14.0",
     "crawlee": "^3.11.1",

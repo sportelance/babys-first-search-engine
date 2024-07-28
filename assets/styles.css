@@ -33,8 +33,26 @@
   font-family: "BPmono", monospace;
 }
 
+.input {
+    position: relative;
+    padding-bottom: 15px;
+}
+
+.input label {
+    font-size: .7em;
+    background: #efefef;
+    padding: 1px;
+    /* margin-top: -5px; */
+    border: 1px dotted #ffffff;
+    position: absolute;
+    left: 0;
+    bottom: 14px;
+    transform: translateY(97%);
+    /* margin-top: 1px; */
+}
+
 input#search-query {
-    width: 80%;
+    /* width: 80%; */
     font-size: 1.15em;
 }
 
@@ -138,8 +156,12 @@ form {
   flex-direction: row;
   gap: 0.5rem;
   align-items: flex-start;
-  justify-content: center;
+  justify-content: flex-start;
   display: inline-flex;
+  width: 100%;
+  overflow: hidden;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 input,
@@ -165,12 +187,12 @@ select {
 
 button {
   /* display: inline-block; */
-  width: auto;
+  /* width: auto; */
   flex-basis: content;
   flex-shrink: initial;
   /* flex-flow: row; */
   /* display: inline-block; */
-  flex: auto;
+  /* flex: auto; */
   color: #2e2e2e;
   text-shadow: 1px 1px 1px #fff;
   transition: all .25s ease-in-out;
@@ -187,11 +209,11 @@ button {}
 
 button#submit-enqueue {
     width: auto;
-    /* display: inline-block; */
-    align-self: flex-start;
-    display: inline-flex;
-    /* width: min-content; */
+    display: block;
+    /* display: inline-flex; */
+    width: min-content;
     padding: .65em 1em;
+    /* flex: auto; */
 }
 
 button:hover {
@@ -206,6 +228,12 @@ input[type="checkbox"] {
   transform: scale(1.6);
   margin-right: 0.5rem;
   cursor: pointer;
+}
+
+input[type="checkbox"] + label {
+    position: relative;
+    clear: both;
+    display: block;
 }
 
 input[type="submit"] {
@@ -226,6 +254,7 @@ pre {
 }
 .tab.active {
   display: block;
+  overflow: hidden;
 }
 .tab-buttons {
   display: flex;
