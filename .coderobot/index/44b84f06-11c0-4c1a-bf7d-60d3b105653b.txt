@@ -1,0 +1,9 @@
+{
+	"id": "sa8ldiUuJKg69Yc",
+	"json": "{\"id\":\"sa8ldiUuJKg69Yc\",\"url\":\"https://akremgomri.github.io/images/RedStart-Certificate.jpg\",\"loadedUrl\":\"https://akremgomri.github.io/images/RedStart-Certificate.jpg\",\"uniqueKey\":\"https://akremgomri.github.io/images/RedStart-Certificate.jpg\",\"method\":\"GET\",\"noRetry\":false,\"retryCount\":0,\"errorMessages\":[],\"headers\":{},\"userData\":{\"__crawlee\":{\"enqueueStrategy\":\"same-hostname\",\"state\":4}},\"handledAt\":\"2024-07-28T00:55:21.110Z\"}",
+	"method": "GET",
+	"orderNo": null,
+	"retryCount": 0,
+	"uniqueKey": "https://akremgomri.github.io/images/RedStart-Certificate.jpg",
+	"url": "https://akremgomri.github.io/images/RedStart-Certificate.jpg"
+}

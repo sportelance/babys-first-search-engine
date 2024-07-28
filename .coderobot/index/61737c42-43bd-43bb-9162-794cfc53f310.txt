@@ -1,0 +1,9 @@
+{
+	"id": "YZSHHIX91jU2HwJ",
+	"json": "{\"id\":\"YZSHHIX91jU2HwJ\",\"url\":\"https://akremgomri.github.io/images/Dipl%C3%B4me%20Ing%20G%C3%A9nie%20Logiciel%20ISSAT.jpg\",\"loadedUrl\":\"https://akremgomri.github.io/images/Dipl%C3%B4me%20Ing%20G%C3%A9nie%20Logiciel%20ISSAT.jpg\",\"uniqueKey\":\"https://akremgomri.github.io/images/Dipl%C3%B4me%20Ing%20G%C3%A9nie%20Logiciel%20ISSAT.jpg\",\"method\":\"GET\",\"noRetry\":false,\"retryCount\":0,\"errorMessages\":[],\"headers\":{},\"userData\":{\"__crawlee\":{\"enqueueStrategy\":\"same-hostname\",\"state\":4}},\"handledAt\":\"2024-07-28T00:55:20.329Z\"}",
+	"method": "GET",
+	"orderNo": null,
+	"retryCount": 0,
+	"uniqueKey": "https://akremgomri.github.io/images/Dipl%C3%B4me%20Ing%20G%C3%A9nie%20Logiciel%20ISSAT.jpg",
+	"url": "https://akremgomri.github.io/images/Dipl%C3%B4me%20Ing%20G%C3%A9nie%20Logiciel%20ISSAT.jpg"
+}

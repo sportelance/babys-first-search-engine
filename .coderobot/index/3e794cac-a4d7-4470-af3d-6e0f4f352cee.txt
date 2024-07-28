@@ -1,0 +1,9 @@
+{
+	"id": "Ja8g3JvtwDFHXFl",
+	"json": "{\"id\":\"Ja8g3JvtwDFHXFl\",\"url\":\"https://akremgomri.github.io/projects.html\",\"loadedUrl\":\"https://akremgomri.github.io/projects.html\",\"uniqueKey\":\"https://akremgomri.github.io/projects.html\",\"method\":\"GET\",\"noRetry\":false,\"retryCount\":0,\"errorMessages\":[],\"headers\":{},\"userData\":{\"__crawlee\":{\"enqueueStrategy\":\"same-hostname\",\"state\":4}},\"handledAt\":\"2024-07-28T00:55:19.117Z\"}",
+	"method": "GET",
+	"orderNo": null,
+	"retryCount": 0,
+	"uniqueKey": "https://akremgomri.github.io/projects.html",
+	"url": "https://akremgomri.github.io/projects.html"
+}

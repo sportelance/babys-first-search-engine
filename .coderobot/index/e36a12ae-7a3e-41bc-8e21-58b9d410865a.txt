@@ -1,0 +1,9 @@
+{
+	"id": "J8vGAEQDntSKW77",
+	"json": "{\"id\":\"J8vGAEQDntSKW77\",\"url\":\"https://akremgomri.github.io/images/diploma%20background%20(not%20a%20diploma).png\",\"loadedUrl\":\"https://akremgomri.github.io/images/diploma%20background%20(not%20a%20diploma).png\",\"uniqueKey\":\"https://akremgomri.github.io/images/diploma%20background%20(not%20a%20diploma).png\",\"method\":\"GET\",\"noRetry\":false,\"retryCount\":0,\"errorMessages\":[],\"headers\":{},\"userData\":{\"__crawlee\":{\"enqueueStrategy\":\"same-hostname\",\"state\":4}},\"handledAt\":\"2024-07-28T00:55:20.497Z\"}",
+	"method": "GET",
+	"orderNo": null,
+	"retryCount": 0,
+	"uniqueKey": "https://akremgomri.github.io/images/diploma%20background%20(not%20a%20diploma).png",
+	"url": "https://akremgomri.github.io/images/diploma%20background%20(not%20a%20diploma).png"
+}

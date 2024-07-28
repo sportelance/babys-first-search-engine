@@ -1,128 +1,206 @@
 <!doctype html>
 <html>
-  <head>
-    <title>Baby's First Search Engine</title>
-    <link rel="stylesheet" href="/assets/styles.css" />
-    <link rel="stylesheet" href="/assets/dark.min.css" />
-  </head>
-  <body>
-    <div class="container">
-      <h3>Baby's First Search Engine</h3>
+<head>
+  <title>Baby's First Search Engine</title>
+  <link rel="stylesheet" href="/assets/styles.css" />
+  <link rel="stylesheet" href="/assets/dark.min.css" />
+</head>
+<body>
+  <div class="container">
+    <h3>Baby's First Search Engine</h3>
 
-      <div class="tab-buttons">
-        <div data-tab-indicated="search" id="search-tab-btn" class="active">
-          Search
+    <div class="tab-buttons">
+      <div data-tab-indicated="search" id="search-tab-btn" class="active">Search</div>
+      <div data-tab-indicated="enqueue" id="enqueue-tab-btn">Enqueue</div>
+      <div data-tab-indicated="info" id="info-tab-btn">Info</div>
+    </div>
+
+    <div id="search-tab" data-tab="search" class="tab active">
+      <form id="search-form">
+        <div class="input">
+          <input type="text" id="search-query" name="query" placeholder="Search..." />
+          <label for="search-query">Query</label>
         </div>
-        <div data-tab-indicated="enqueue" id="enqueue-tab-btn">Enqueue</div>
-        <div data-tab-indicated="info" id="info-tab-btn">Info</div>
-      </div>
+        <button id="search-button" type="submit">go</button>
+      </form>
 
-      <div id="search-tab" data-tab="search" class="tab active">
-        <form id="search-form">
-          <div class="input">
-            <input
-              type="text"
-              id="search-query"
-              name="query"
-              placeholder="Search..." />
-            <label for="search-query">Query</label>
-          </div>
-          <button id="search-button" type="submit">go</button>
-        </form>
-
-        <div id="total-results"></div>
-        <div id="results"></div>
-      </div>
-
-      <div id="enqueue-tab" data-tab="enqueue" class="tab">
-        <form id="enqueue-form">
-          <div class="input">
-            <input
-              type="text"
-              id="enqueue-input"
-              name="enqueue"
-              placeholder="Link to enqueue" />
-            <label for="enqueue-input">Link</label>
-          </div>
-
-          <!-- name of this crawl -->
-          <div class="input">
-            <input
-              type="text"
-              id="crawl-name"
-              name="crawl-name"
-              required
-              placeholder="Name of this indexed crawl" />
-            <label for="crawl-name">Name of this indexed crawl</label>
-          </div>
-          <!-- max depth -->
-          <div class="input">
-            <input
-              type="number"
-              id="max-depth"
-              value="-1"
-              name="max-depth"
-              placeholder="Max depth" />
-            <label for="max-depth">Max depth</label>
-          </div>
-          <!-- max requests-->
-          <div class="input">
-            <input
-              type="number"
-              id="max-requests"
-              name="max-requests"
-              value="-1"
-              placeholder="Max requests" />
-            <label for="max-requests">Max requests</label>
-          </div>
-
-          <!-- max time -->
-          <div class="input">
-            <input
-              type="number"
-              id="max-time"
-              name="max-time"
-              value="-1"
-              placeholder="Max time" />
-            <label for="max-time">Max time</label>
-          </div>
-
-          <!-- re-index duplicates? -->
-          <div class="input">
-            <input
-              type="checkbox"
-              id="re-index-duplicates"
-              name="re-index-duplicates" />
-            <label for="re-index-duplicates">Re-index duplicates?</label>
-          </div>
-          <button id="submit-enqueue" type="submit">Enqueue</button>
-        </form>
-
-        <div>
-          <span>Enqueuing result</span>
-          <code class="language-json">
-            <pre><div id="enqueue-result"></div></pre>
-          </code>
-        </div>
-
-        <div>
-          <h4>Crawl Log</h4>
-          <div
-            id="log-container"
-            style="
-              height: 200px;
-              overflow-y: auto;
-              border: 1px solid #ccc;
-              padding: 10px;
-            "></div>
-        </div>
-      </div>
-      <div id="info-tab" data-tab="info" class="tab">
-        <p>to be continued</p>
+      <div id="total-results"></div>
+      <div id="results"></div>
+      <div id="pagination">
+        <button id="prev-page" disabled>Previous</button>
+        <button id="next-page" disabled>Next</button>
       </div>
     </div>
 
-    <script src="/assets/script.js"></script>
-    <script src="/assets/highlight.min.js"></script>
-  </body>
+    <div id="enqueue-tab" data-tab="enqueue" class="tab">
+      <form id="enqueue-form">
+        <div class="input">
+          <input type="text" id="enqueue-input" name="enqueue" placeholder="Link to enqueue" />
+          <label for="enqueue-input">Link</label>
+        </div>
+        <div class="input">
+          <input type="text" id="crawl-name" name="crawl-name" required placeholder="Name of this indexed crawl" />
+          <label for="crawl-name">Name of this indexed crawl</label>
+        </div>
+        <div class="input">
+          <input type="number" id="max-depth" value="-1" name="max-depth" placeholder="Max depth" />
+          <label for="max-depth">Max depth</label>
+        </div>
+        <div class="input">
+          <input type="number" id="max-requests" name="max-requests" value="-1" placeholder="Max requests" />
+          <label for="max-requests">Max requests</label>
+        </div>
+        <div class="input">
+          <input type="number" id="max-time" name="max-time" value="-1" placeholder="Max time" />
+          <label for="max-time">Max time</label>
+        </div>
+        <div class="input">
+          <input type="checkbox" id="re-index-duplicates" name="re-index-duplicates" />
+          <label for="re-index-duplicates">Re-index duplicates?</label>
+        </div>
+        <button id="submit-enqueue" type="submit">Enqueue</button>
+      </form>
+      <div>
+        <span>Enqueuing result</span>
+        <code class="language-json"><pre><div id="enqueue-result"></div></pre></code>
+      </div>
+      <div>
+        <h4>Crawl Log</h4>
+        <div id="log-container" style="height: 200px; overflow-y: auto; border: 1px solid #ccc; padding: 10px;"></div>
+      </div>
+    </div>
+    <div id="info-tab" data-tab="info" class="tab">
+      <p>to be continued</p>
+    </div>
+  </div>
+
+ <script>
+  document.getElementById('enqueue-form').addEventListener('submit', function(event) {
+  event.preventDefault();
+  const enqueueResultElement = document.getElementById('enqueue-result');
+  enqueueResultElement.innerHTML = "Enqueuing...";
+
+  const q = document.getElementById('enqueue-input').value;
+  const crawlName = document.getElementById('crawl-name').value;
+  const maxRequests = document.getElementById('max-requests').value;
+  const reIndexDuplicates = document.getElementById('re-index-duplicates').checked;
+  fetch('/enqueue', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ links: [q], crawlName: crawlName, maxRequests: maxRequests, reIndexDuplicates: reIndexDuplicates })
+  })
+  .then(response => response.json())
+  .then(data => {
+    enqueueResultElement.innerHTML = JSON.stringify(data, null, 2);
+    if (data.crawlId) {
+      startLogStream(data.crawlId);
+    }
+  })
+  .catch(error => {
+    enqueueResultElement.innerHTML = '<p>An error occurred</p>';
+  });
+});
+
+let currentPage = 1;
+
+document.getElementById('search-form').addEventListener('submit', function(event) {
+  event.preventDefault();
+  currentPage = 1;
+  search();
+});
+
+document.getElementById('prev-page').addEventListener('click', function() {
+  if (currentPage > 1) {
+    currentPage--;
+    search();
+  }
+});
+
+document.getElementById('next-page').addEventListener('click', function() {
+  currentPage++;
+  search();
+});
+
+function search() {
+  const resultsElement = document.getElementById('results');
+  resultsElement.innerHTML = "Searching...";
+
+  const q = document.getElementById('search-query').value;
+  fetch('/search?q=' + encodeURIComponent(q) + '&p=' + currentPage, {
+    method: 'GET'
+  })
+  .then(response => response.json())
+  .then(data => {
+    let results = '<ul>';
+    data.results.forEach(item => {
+      results += `<li><a href="${item.href}" target="_blank">${item.title}</a></li>`;
+    });
+    results += '</ul>';
+    resultsElement.innerHTML = results;
+    document.getElementById('total-results').innerHTML = `Total results: ${data.totalResults}`;
+
+    document.getElementById('prev-page').disabled = currentPage === 1;
+    document.getElementById('next-page').disabled = currentPage === data.totalPages;
+  })
+  .catch(error => {
+    resultsElement.innerHTML = '<p>An error occurred</p>';
+  });
+}
+
+function startLogStream(crawlId) {
+  const eventSource = new EventSource(`/logs/stream/${crawlId}`);
+  const logContainer = document.getElementById('log-container');
+  logContainer.innerHTML = '';
+
+  eventSource.onmessage = function(event) {
+    const log = JSON.parse(event.data);
+    const logMessage = document.createElement('p');
+    logMessage.textContent = `${log.timestamp} - ${log.level.toUpperCase()}: ${log.message}`;
+    logContainer.appendChild(logMessage);
+    logContainer.scrollTop = logContainer.scrollHeight;
+  };
+
+  eventSource.onerror = function() {
+    const errorMessage = document.createElement('p');
+    errorMessage.textContent = 'An error occurred with the log stream.';
+    logContainer.appendChild(errorMessage);
+    eventSource.close();
+  };
+}
+
+window.addEventListener('beforeunload', function() {
+  if (eventSource) {
+    eventSource.close();
+  }
+});
+
+const tabButtons = document.querySelectorAll(".tab-buttons > *");
+
+const removeAllActiveClasses = () => {
+  tabButtons.forEach((tabButton) => {
+    tabButton.classList.remove("active");
+  });
+};
+
+[...tabButtons].forEach((tabButton) => {
+  tabButton.addEventListener("click", () => {
+    removeAllActiveClasses();
+    tabButton.classList.add("active");
+    const tabName = tabButton.dataset.tabIndicated;
+    showTab(tabName);
+  });
+});
+
+function showTab(tabId) {
+  document.querySelectorAll('.tab').forEach(tab => {
+    tab.classList.remove('active');
+    if(tab.dataset.tab === tabId) {
+      tab.classList.add('active');
+    }
+  });
+}
+ </script>
+</body>
 </html>

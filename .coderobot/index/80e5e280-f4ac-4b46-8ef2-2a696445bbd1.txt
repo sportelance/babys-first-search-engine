@@ -3,7 +3,7 @@ import { EnqueueStrategy } from "crawlee"
 import dotenv from "dotenv"
 import { nanoid } from "nanoid"
 
-import { push, urlExists } from "./database.js"
+import { push, urlExists } from "./db.js"
 import { writeLog } from "./log.js"
 import getMeta from "./meta.js"
 dotenv.config()

@@ -1,0 +1,9 @@
+{
+	"id": "3LLfZwpm7Ud4ms7",
+	"json": "{\"id\":\"3LLfZwpm7Ud4ms7\",\"url\":\"https://akremgomri.github.io/images/TCF%20TP.jpg\",\"loadedUrl\":\"https://akremgomri.github.io/images/TCF%20TP.jpg\",\"uniqueKey\":\"https://akremgomri.github.io/images/TCF%20TP.jpg\",\"method\":\"GET\",\"noRetry\":false,\"retryCount\":0,\"errorMessages\":[],\"headers\":{},\"userData\":{\"__crawlee\":{\"enqueueStrategy\":\"same-hostname\",\"state\":4}},\"handledAt\":\"2024-07-28T00:55:20.834Z\"}",
+	"method": "GET",
+	"orderNo": null,
+	"retryCount": 0,
+	"uniqueKey": "https://akremgomri.github.io/images/TCF%20TP.jpg",
+	"url": "https://akremgomri.github.io/images/TCF%20TP.jpg"
+}

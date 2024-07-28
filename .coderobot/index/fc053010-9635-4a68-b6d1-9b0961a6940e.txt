@@ -1,0 +1,9 @@
+{
+	"id": "LSQea5BSfsG8CJs",
+	"json": "{\"id\":\"LSQea5BSfsG8CJs\",\"url\":\"https://akremgomri.github.io/images/Degree%20UPEC.png\",\"loadedUrl\":\"https://akremgomri.github.io/images/Degree%20UPEC.png\",\"uniqueKey\":\"https://akremgomri.github.io/images/Degree%20UPEC.png\",\"method\":\"GET\",\"noRetry\":false,\"retryCount\":0,\"errorMessages\":[],\"headers\":{},\"userData\":{\"__crawlee\":{\"enqueueStrategy\":\"same-hostname\",\"state\":4}},\"handledAt\":\"2024-07-28T00:55:20.444Z\"}",
+	"method": "GET",
+	"orderNo": null,
+	"retryCount": 0,
+	"uniqueKey": "https://akremgomri.github.io/images/Degree%20UPEC.png",
+	"url": "https://akremgomri.github.io/images/Degree%20UPEC.png"
+}

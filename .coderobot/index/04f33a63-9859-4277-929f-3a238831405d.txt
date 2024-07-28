@@ -5,7 +5,7 @@ document.getElementById('enqueue-form').addEventListener('submit', function(even
 
   const q = document.getElementById('enqueue-input').value;
   const crawlName = document.getElementById('crawl-name').value;
-  const maxRequests = document.getElementById('max-requests').value;
+  const maxRequests = document.getElementById('"max-requests').value;
   const reIndexDuplicates = document.getElementById('re-index-duplicates').checked;
   fetch('/enqueue', {
     method: 'POST',
@@ -20,39 +20,25 @@ document.getElementById('enqueue-form').addEventListener('submit', function(even
     if (data.crawlId) {
       startLogStream(data.crawlId);
     }
+  //  hljs.highlightAll();
   })
   .catch(error => {
     enqueueResultElement.innerHTML = '<p>An error occurred</p>';
   });
 });
 
-let currentPage = 1;
-
 document.getElementById('search-form').addEventListener('submit', function(event) {
   event.preventDefault();
-  currentPage = 1;
-  search();
-});
-
-document.getElementById('prev-page').addEventListener('click', function() {
-  if (currentPage > 1) {
-    currentPage--;
-    search();
-  }
-});
-
-document.getElementById('next-page').addEventListener('click', function() {
-  currentPage++;
-  search();
-});
-
-function search() {
   const resultsElement = document.getElementById('results');
   resultsElement.innerHTML = "Searching...";
 
   const q = document.getElementById('search-query').value;
-  fetch('/search?q=' + encodeURIComponent(q) + '&p=' + currentPage, {
-    method: 'GET'
+  fetch('/search', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({ q })
   })
   .then(response => response.json())
   .then(data => {
@@ -63,14 +49,11 @@ function search() {
     results += '</ul>';
     resultsElement.innerHTML = results;
     document.getElementById('total-results').innerHTML = `Total results: ${data.totalResults}`;
-
-    document.getElementById('prev-page').disabled = currentPage === 1;
-    document.getElementById('next-page').disabled = currentPage === data.totalPages;
   })
   .catch(error => {
     resultsElement.innerHTML = '<p>An error occurred</p>';
   });
-}
+});
 
 function startLogStream(crawlId) {
   const eventSource = new EventSource(`/logs/stream/${crawlId}`);
@@ -93,6 +76,7 @@ function startLogStream(crawlId) {
   };
 }
 
+// Optional: Stop log stream when leaving the page
 window.addEventListener('beforeunload', function() {
   if (eventSource) {
     eventSource.close();
@@ -108,6 +92,7 @@ const removeAllActiveClasses = () => {
 };
 
 [...tabButtons].forEach((tabButton) => {
+  
   tabButton.addEventListener("click", () => {
     removeAllActiveClasses();
     tabButton.classList.add("active");
@@ -116,6 +101,7 @@ const removeAllActiveClasses = () => {
   });
 });
 
+
 function showTab(tabId) {
   document.querySelectorAll('.tab').forEach(tab => {
     tab.classList.remove('active');
@@ -123,4 +109,10 @@ function showTab(tabId) {
       tab.classList.add('active');
     }
   });
+ // document.getElementById(tabId).classList.add('active');
+  
+  //document.querySelectorAll('.tab-buttons div').forEach(tabBtn => {
+ //   tabBtn.classList.remove('active');
+//  });
+//  document.getElementById(`${tabId}-btn`).classList.add('active');
 }

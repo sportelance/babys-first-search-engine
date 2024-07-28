@@ -4,7 +4,7 @@ import fs from 'node:fs/promises';
 import rateLimit from 'express-rate-limit';
 
 import enqueueCrawl from './lib/crawl.js';
-import { push, search } from './lib/database.js';
+import { push, search } from './lib/db.js';
 import { createLogEmitter, removeLogEmitter, writeLog } from './lib/log.js';
 import { validateEnqueue, validateSearch, validateSubmit } from './lib/validators.js';
 
@@ -79,9 +79,9 @@ app.post("/enqueue", validateEnqueue, async (request, response) => {
 // Endpoint to query Elasticsearch
 app.get("/search", validateSearch, async (request, response) => {
   try {
-    const { q, p } = request.query;
-    const searchResponse = await search(q, p);
-    response.status(200).json(searchResponse);
+    const { q } = request.query;
+    const searchResponse = await search(q);
+    response.status(200).json(searchResponse.body.hits.hits);
   } catch (error) {
     writeLog("Error searching documents:", error);
     response.status(500).json({ error: "Error searching documents" });

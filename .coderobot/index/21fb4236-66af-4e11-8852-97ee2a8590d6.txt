@@ -1,0 +1,9 @@
+{
+	"id": "7oNUDuKNA0L2FA8",
+	"json": "{\"id\":\"7oNUDuKNA0L2FA8\",\"url\":\"https://akremgomri.github.io/contact%20me.html\",\"loadedUrl\":\"https://akremgomri.github.io/contact%20me.html\",\"uniqueKey\":\"https://akremgomri.github.io/contact%20me.html\",\"method\":\"GET\",\"noRetry\":false,\"retryCount\":0,\"errorMessages\":[],\"headers\":{},\"userData\":{\"__crawlee\":{\"enqueueStrategy\":\"same-hostname\",\"state\":4}},\"handledAt\":\"2024-07-28T00:55:20.124Z\"}",
+	"method": "GET",
+	"orderNo": null,
+	"retryCount": 0,
+	"uniqueKey": "https://akremgomri.github.io/contact%20me.html",
+	"url": "https://akremgomri.github.io/contact%20me.html"
+}
