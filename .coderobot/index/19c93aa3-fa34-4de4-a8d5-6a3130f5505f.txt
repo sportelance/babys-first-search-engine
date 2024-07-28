@@ -1,0 +1,17 @@
+{
+    "apps": [
+        {
+            "name": "babys-first-search-engine",
+            "script": "./index.js",
+            "merge_logs": true,
+            "max_restarts": 5,
+            "instances": 1,
+           
+            "env": {
+                "NODE_ENV": "production",
+                "PORT": "3000"
+            },
+            "exec_mode": "cluster"
+        }
+    ]
+}

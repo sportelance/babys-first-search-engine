@@ -1,0 +1,54 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Baby's First Search Engine</title>
+    <link rel="stylesheet" href="/assets/styles.css" />
+    <link rel="stylesheet" href="/assets/dark.min.css" />
+  </head>
+  <body>
+    <div class="container">
+      <h3>Baby's First Search Engine</h3>
+      
+      <div class="tab-buttons">
+        <div id="search-tab-btn" class="active">Search</div>
+        <div id="enqueue-tab-btn">Enqueue</div>
+      </div>
+      
+      <div id="search-tab" class="tab active">
+        <form id="search-form">
+          <input type="text" id="search-query" name="query" placeholder="Search..." />
+          <button id="search-button" type="submit">go</button>
+        </form>
+        
+        <div id="total-results"></div>
+        <div id="results"></div>
+      </div>
+      
+      <div id="enqueue-tab" class="tab">
+        <form id="enqueue-form">
+          <input type="text" id="enqueue-input" name="enqueue" placeholder="Link to enqueue" />
+          <input type="text" id="crawl-name" name="crawl-name" placeholder="Name of this indexed crawl" />
+          <button id="submit-enqueue" type="submit">Enqueue</button>
+        </form>
+        
+        <div>
+          <span>Enqueuing result</span>
+          <code class="language-json"><pre><div id="enqueue-result"></div></pre></code>
+          
+        </div>
+        
+        <div>
+          <h4>Crawl Log</h4>
+          <div id="log-container" style="height: 200px; overflow-y: auto; border: 1px solid #ccc; padding: 10px;"></div>
+        </div>
+      </div>
+    </div>
+    
+    <script src="/assets/script.js"></script>
+    <script src="/assets/highlight.min.js"></script>
+
+      
+
+  
+  </body>
+</html>
