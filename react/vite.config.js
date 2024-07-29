@@ -7,9 +7,7 @@ export default defineConfig({
   build: {
     sourcemap: true
   },
-  server: {
-    hmr: false
-  },
+ 
   css: {
     devSourcemap: true
   }

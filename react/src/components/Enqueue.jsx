@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import UseCrawlLog from "./UseCrawlLog";
-
+import "./Enqueue.css";
 const Enqueue = () => {
   const [enqueueResult, setEnqueueResult] = useState("");
   const [enqueueInput, setEnqueueInput] = useState("");
@@ -51,7 +51,7 @@ const Enqueue = () => {
   };
 
   return (
-    <div className="tab">
+    <>
       <form onSubmit={handleEnqueueSubmit}>
         <div className="input">
           <input
@@ -123,7 +123,7 @@ const Enqueue = () => {
         </code>
       </div>
       <CrawlLog />
-    </div>
+    </>
   );
 };
 

@@ -5,7 +5,7 @@ import rateLimit from 'express-rate-limit';
 import cors from 'cors';
 
 import enqueueCrawl from './lib/crawl.js';
-import { push, search, getUniqueCrawlNames } from './lib/database.js';
+import { push, search, getUniqueCrawlNames, getStats } from './lib/database.js';
 import { createLogEmitter, removeLogEmitter, writeLog } from './lib/log.js';
 import { validateEnqueue, validateSearch, validateSubmit } from './lib/validators.js';
 
@@ -107,8 +107,8 @@ app.post("/search", validateSearch, async (request, response) => {
 app.get("/stats",  async (request, response) => {
   
   try {
-    const results = await getUniqueCrawlNames();
-    response.status(200).json({uniqueCrawlNames: results});
+    const results = await getStats();
+    response.status(200).json(results);
   } catch (error) {
     console.error("Error searching documents:", error);
     response.status(500).json({ error: "Error searching documents" });

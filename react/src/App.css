@@ -62,9 +62,7 @@ input#search-query {
     margin:0 auto;
 }
 
-span {
-    font-weight: 600;
-}
+
 button::after, input[type="submit"]::after {
  content: " →";
 }
@@ -143,7 +141,8 @@ ol {
 }
 
 li {
-  margin: 0.5rem 0;
+  margin: .5em 1em;
+  list-style: disc;
 }
 
 form {

@@ -27,7 +27,7 @@ const Search = ({}) => {
     }
   }
   return (
-    <div className="tab active">
+    <>
       <form onSubmit={handleSearchSubmit}>
         <div className="input">
           <input
@@ -48,7 +48,12 @@ const Search = ({}) => {
         currentPage={currentPage}
         setCurrentPage={setCurrentPage}
       />
-    </div>
+      <Pagination
+        currentPage={currentPage}
+        totalPages={Math.ceil(totalResults / 10)}
+        setCurrentPage={setCurrentPage}
+      />
+    </>
   )
 }
 export default Search
