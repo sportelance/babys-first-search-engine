@@ -1,6 +1,8 @@
 #wrangler (cf workers)
 .wrangler
 # Compiled source
+front-end
+logs
 *.com
 *.class
 *.dll

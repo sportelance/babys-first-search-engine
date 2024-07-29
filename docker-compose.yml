@@ -13,8 +13,18 @@ services:
     ports:
       - "9200:9200"
     volumes:
-      - esdata:/usr/share/elasticsearch/data
-
+      - ./esdata:/usr/share/elasticsearch/data
+  babys-first-search-engine:
+    
+    image: elliotberry/babys-first-search-engine:latest
+    ports:
+      - "3000:3000"
+    depends_on:
+      - elasticsearch
+    environment:
+      - ELASTICSEARCH_URL=http://elasticsearch:9200
+    volumes:
+      - ./logs:/app/logs
 volumes:
   esdata:
     driver: local

@@ -50,6 +50,7 @@
     "cors": "^2.8.5",
     "crawlee": "^3.11.1",
     "dotenv": "^16.4.5",
+    "elliotisms": "^0.0.37",
     "express": "^4.19.2",
     "express-rate-limit": "^7.4.0",
     "express-validator": "^7.1.0",

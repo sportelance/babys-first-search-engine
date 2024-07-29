@@ -1,12 +1,13 @@
+import cors from 'cors';
 import dotenv from 'dotenv';
 import express from 'express';
-import fs from 'node:fs/promises';
 import rateLimit from 'express-rate-limit';
-import cors from 'cors';
+import fs from 'node:fs/promises';
 
 import enqueueCrawl from './lib/crawl.js';
-import { push, search, getUniqueCrawlNames, getStats } from './lib/database.js';
+import { getStats,getUniqueCrawlNames, push, search } from './lib/database.js';
 import { createLogEmitter, removeLogEmitter, writeLog } from './lib/log.js';
+import { errorHandler, notFoundHandler } from './lib/middlewares/error-handlers.js';
 import { validateEnqueue, validateSearch, validateSubmit } from './lib/validators.js';
 
 // Load environment variables from .env file
@@ -20,12 +21,13 @@ app.use(express.json());
 
 // Middleware to enable CORS
 app.use(cors());
-
+app.use(errorHandler);
+app.use(notFoundHandler);
 // Define rate limiter
 const limiter = rateLimit({
-  windowMs: 15 * 60 * 1000, // 15 minutes
-  max: 100, // limit each IP to 100 requests per windowMs
-  message: "Too many requests from this IP, please try again after 15 minutes"
+  max: 100, 
+  message: "You've been ratelimited, motherfucker", 
+  windowMs: 15 * 60 * 1000
 });
 
 // Apply the rate limiter to all requests
@@ -74,7 +76,7 @@ app.post("/enqueue", validateEnqueue, async (request, response) => {
 // Endpoint to query Elasticsearch
 app.get("/search", validateSearch, async (request, response) => {
   try {
-    const { q, p } = request.query;
+    const { p, q } = request.query;
     const searchResponse = await search(q, p);
     response.status(200).json(searchResponse);
   } catch (error) {
