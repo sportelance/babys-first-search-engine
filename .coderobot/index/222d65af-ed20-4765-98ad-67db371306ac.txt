@@ -1,9 +1,0 @@
-{
-	"id": "hjjdNKGE6Rm2fhW",
-	"json": "{\"id\":\"hjjdNKGE6Rm2fhW\",\"url\":\"https://akremgomri.github.io/images/Sama%20Consulting%20Attestation%20de%20Stage.jpg\",\"loadedUrl\":\"https://akremgomri.github.io/images/Sama%20Consulting%20Attestation%20de%20Stage.jpg\",\"uniqueKey\":\"https://akremgomri.github.io/images/Sama%20Consulting%20Attestation%20de%20Stage.jpg\",\"method\":\"GET\",\"noRetry\":false,\"retryCount\":0,\"errorMessages\":[],\"headers\":{},\"userData\":{\"__crawlee\":{\"enqueueStrategy\":\"same-hostname\",\"state\":4}},\"handledAt\":\"2024-07-28T00:55:20.618Z\"}",
-	"method": "GET",
-	"orderNo": null,
-	"retryCount": 0,
-	"uniqueKey": "https://akremgomri.github.io/images/Sama%20Consulting%20Attestation%20de%20Stage.jpg",
-	"url": "https://akremgomri.github.io/images/Sama%20Consulting%20Attestation%20de%20Stage.jpg"
-}

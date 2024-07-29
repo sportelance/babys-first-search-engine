@@ -1,9 +1,0 @@
-{
-	"id": "k3OpsPc0H5B3WmW",
-	"json": "{\"id\":\"k3OpsPc0H5B3WmW\",\"url\":\"https://akremgomri.github.io/\",\"loadedUrl\":\"https://akremgomri.github.io/\",\"uniqueKey\":\"https://akremgomri.github.io\",\"method\":\"GET\",\"noRetry\":false,\"retryCount\":0,\"errorMessages\":[],\"headers\":{},\"userData\":{\"__crawlee\":{\"state\":4}},\"handledAt\":\"2024-07-28T00:55:18.684Z\"}",
-	"method": "GET",
-	"orderNo": null,
-	"retryCount": 0,
-	"uniqueKey": "https://akremgomri.github.io",
-	"url": "https://akremgomri.github.io/"
-}

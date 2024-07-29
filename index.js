@@ -32,17 +32,8 @@ const limiter = rateLimit({
 app.use(limiter);
 
 // Serve static files
-app.use('/assets', express.static('./assets'));
+app.use('/', express.static('./front-end'));
 
-// Serve index.html
-app.get("/", async (request, response) => {
-  try {
-    const htmlContent = await fs.readFile('index.html', 'utf8');
-    response.header('Content-Type', 'text/html').send(htmlContent);
-  } catch {
-    response.status(500).send("Error reading index.html");
-  }
-});
 
 // Endpoint to submit items to Elasticsearch
 app.post("/submit", validateSubmit, async (request, response) => {

@@ -1,9 +1,0 @@
-{
-	"id": "awfwBlsZgdQDK4r",
-	"json": "{\"id\":\"awfwBlsZgdQDK4r\",\"url\":\"https://akremgomri.github.io/assets/files/Data_Scientist_Resume__ENG.pdf\",\"loadedUrl\":\"https://akremgomri.github.io/assets/files/Data_Scientist_Resume__ENG.pdf\",\"uniqueKey\":\"https://akremgomri.github.io/assets/files/Data_Scientist_Resume__ENG.pdf\",\"method\":\"GET\",\"noRetry\":false,\"retryCount\":0,\"errorMessages\":[],\"headers\":{},\"userData\":{\"__crawlee\":{\"enqueueStrategy\":\"same-hostname\",\"state\":4}},\"handledAt\":\"2024-07-28T00:55:21.342Z\"}",
-	"method": "GET",
-	"orderNo": null,
-	"retryCount": 0,
-	"uniqueKey": "https://akremgomri.github.io/assets/files/Data_Scientist_Resume__ENG.pdf",
-	"url": "https://akremgomri.github.io/assets/files/Data_Scientist_Resume__ENG.pdf"
-}

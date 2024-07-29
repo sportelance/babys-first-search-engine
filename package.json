@@ -40,8 +40,10 @@
   "scripts": {
     "start": "pm2 start prod.pm2.json",
     "dev": "pm2 start dev.pm2.json",
-    "lint": "eslint . --ext .js",
-    "format": "prettier --write ."
+    "build:react": "cd react && vite build",
+    "watch": "cd react && vite",
+    "database": "docker compose up -d",
+    "api": "node index.js"
   },
   "dependencies": {
     "@elastic/elasticsearch": "^8.14.0",
