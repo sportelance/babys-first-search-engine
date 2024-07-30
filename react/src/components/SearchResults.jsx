@@ -1,5 +1,5 @@
 import react, { useState } from "react"
-
+import "./SearchResults.css"
 const SingleResult = ({ index, href, title, crawlName, crawlId, meta }) => {
   return (
     <li key={index}>
@@ -8,6 +8,13 @@ const SingleResult = ({ index, href, title, crawlName, crawlId, meta }) => {
         {title}
       </a>
       {crawlName && <span className="crawl-info">Crawl: {crawlName}{crawlId && crawlId}</span>}
+     {meta && (
+      
+        <div className="meta">
+          
+          {meta.description && <p>{meta.description}</p>}
+          </div>
+          )}
      </div>
     
     </li>
@@ -16,10 +23,9 @@ const SingleResult = ({ index, href, title, crawlName, crawlId, meta }) => {
 
 const SearchResults = ({
   searchResults,
-  totalResults,
-  currentPage,
-  setCurrentPage
+
 }) => {
+  console.log(searchResults)
   return (
     <div id="results">
       <ul>

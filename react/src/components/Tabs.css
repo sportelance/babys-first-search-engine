@@ -1,6 +1,6 @@
 .tab.active {
   display: block;
-  overflow: hidden;
+
 }
 .tab-buttons {
   display: flex;

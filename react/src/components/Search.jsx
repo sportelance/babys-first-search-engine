@@ -1,6 +1,7 @@
 import react, { useState } from "react"
 import Pagination from "./Pagination"
 import SearchResults from "./SearchResults"
+import "./Search.css"
 const Search = ({}) => {
   const [searchQuery, setSearchQuery] = useState("")
   const [searchResults, setSearchResults] = useState([])
@@ -32,16 +33,17 @@ const Search = ({}) => {
         <div className="input">
           <input
             type="text"
+            id="search-query"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search..."
           />
           <label htmlFor="search-query">Query</label>
         </div>
-        <button type="submit">Go</button>
+        <button id="search-submit" type="submit">Go</button>
       </form>
 
-      <div id="total-results">Total results: {totalResults}</div>
+      <div id="total-results">Total results: {totalResults}. Page {currentPage} / {Math.ceil(totalResults / 10)}</div>
       <SearchResults
         searchResults={searchResults}
         totalResults={totalResults}

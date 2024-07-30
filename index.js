@@ -5,7 +5,7 @@ import rateLimit from 'express-rate-limit';
 import fs from 'node:fs/promises';
 
 import enqueueCrawl from './lib/crawl.js';
-import { getStats,getUniqueCrawlNames, push, search } from './lib/database.js';
+import { getStats, getUniqueCrawlNames, push, search } from './lib/database.js';
 import { createLogEmitter, removeLogEmitter, writeLog } from './lib/log.js';
 import { errorHandler, notFoundHandler } from './lib/middlewares/error-handlers.js';
 import { validateEnqueue, validateSearch, validateSubmit } from './lib/validators.js';
@@ -22,7 +22,7 @@ app.use(express.json());
 // Middleware to enable CORS
 app.use(cors());
 app.use(errorHandler);
-app.use(notFoundHandler);
+
 // Define rate limiter
 const limiter = rateLimit({
   max: 100, 
@@ -98,7 +98,6 @@ app.post("/search", validateSearch, async (request, response) => {
 });
 
 app.get("/stats",  async (request, response) => {
-  
   try {
     const results = await getStats();
     response.status(200).json(results);
