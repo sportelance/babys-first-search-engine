@@ -1,5 +1,5 @@
 import react, {useState, useEffect} from 'react';
-
+import "./CrawlLog.css";
 
 const UseCrawlLog = () => {
     const [logMessages, setLogMessages] = useState([])
@@ -37,15 +37,11 @@ const UseCrawlLog = () => {
       const CrawlLog = () => {
     return (
     <div>
-    <h4>Crawl Log</h4>
+   
     <div
       id="log-container"
-      style={{
-        height: "200px",
-        overflowY: "auto",
-        border: "1px solid #ccc",
-        padding: "10px"
-      }}>
+    >
+      <h3 className="log-container-label"><span>Crawl Log Stream</span></h3>
       {logMessages.map((message, index) => (
         <p key={index}>{message}</p>
       ))}

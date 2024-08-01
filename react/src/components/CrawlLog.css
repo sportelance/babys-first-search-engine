@@ -1,0 +1,27 @@
+#log-container p {
+font-size: .7em;
+}
+#log-container {
+    position: relative;
+    height: 200px;
+    overflow-y: auto;
+    /* border: 1px solid rgb(204, 204, 204); */
+    padding: 10px;
+    background: #f5f5f5;
+}
+.log-container-label {
+    font-size: .7em;
+   
+    width:auto;
+    padding: 1px;
+    /* margin-top: -5px; */
+    border: 1px dotted #ffffff;
+    position: absolute;
+    left: 0;
+    top: -14px;
+    transform: translateY(97%);
+}
+.log-container-label span {
+    background: #f5f5f5;
+    padding: 1px;
+}
