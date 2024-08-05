@@ -82,7 +82,9 @@ app.get("/search", validateSearch, limiter, async (request, response) => {
     response.status(500).json({ error: "Error searching documents" });
   }
 });
-
+app.get("/alive", (request, response) => {
+  response.status(200).json({ alive: true });
+});
 app.get("/stats", async (request, response) => {
   try {
     const results = await getStats();

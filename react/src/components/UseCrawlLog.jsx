@@ -41,7 +41,7 @@ const UseCrawlLog = () => {
     <div
       id="log-container"
     >
-      <h3 className="log-container-label"><span>Crawl Log Stream</span></h3>
+      <h3 className="log-container-label"><span>Crawl Log</span></h3>
       {logMessages.map((message, index) => (
         <p key={index}>{message}</p>
       ))}

@@ -43,7 +43,7 @@ const Search = ({}) => {
         <button id="search-submit" type="submit">Go</button>
       </form>
 
-      <div id="total-results">Total results: {totalResults}. Page {currentPage} / {Math.ceil(totalResults / 10)}</div>
+     {searchResults && searchResults.length > 0 ? <div id="total-results">Total results: {totalResults}. Page {currentPage} / {Math.ceil(totalResults / 10)}</div>: <></>}
       <SearchResults
         searchResults={searchResults}
         totalResults={totalResults}

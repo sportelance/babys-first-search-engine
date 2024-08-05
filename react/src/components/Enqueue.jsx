@@ -1,68 +1,96 @@
-import React, { useState } from "react";
-import UseCrawlLog from "./UseCrawlLog";
-import "./Enqueue.css";
-const Enqueue = () => {
-  const [enqueueResult, setEnqueueResult] = useState("");
-  const [enqueueInput, setEnqueueInput] = useState("");
-  const [crawlName, setCrawlName] = useState("");
-  const [maxRequests, setMaxRequests] = useState(-1);
-  const [reIndexDuplicates, setReIndexDuplicates] = useState(false);
-  const [errors, setErrors] = useState({});
+import React, { useState, useRef, useCallback, useEffect } from "react"
+import UseCrawlLog from "./UseCrawlLog"
+import Textarea from "react-expanding-textarea"
+import "./Enqueue.css"
+const Enqueue = ({popNotification}) => {
+  const [enqueueResult, setEnqueueResult] = useState("")
+  const [enqueueInput, setEnqueueInput] = useState("")
+  const [crawlName, setCrawlName] = useState("")
+  const [maxRequests, setMaxRequests] = useState(-1)
+  const [reIndexDuplicates, setReIndexDuplicates] = useState(false)
+  const [errors, setErrors] = useState({})
+  const [crawlSitemap, setCrawlSitemap] = useState(false)
+  const textareaRef = useRef(null)
 
-  const { CrawlLog, startLogStream } = UseCrawlLog();
+  const handleChange = useCallback((e) => {
+    setEnqueueInput(e.target.value)
+  }, [])
+
+  useEffect(() => {
+    textareaRef.current.focus()
+  }, [])
+  const { CrawlLog, startLogStream } = UseCrawlLog()
 
   const validate = () => {
-    const errors = {};
-    if (!enqueueInput) errors.enqueueInput = "Link is required";
-    if (!crawlName) errors.crawlName = "Crawl name is required";
+    const errors = {}
+    let links = enqueueInput.split("\n").map((link) => link.trim())
+    links.forEach((link) => {
+      let valid = false
+      try {
+        let url = new URL(link)
+        valid = true
+      } catch (error) {
+        valid = false
+      }
+      if (!valid)
+        errors.enqueueInput =
+          "Invalid link on line " + (links.indexOf(link) + 1)
+    })
+    if (!enqueueInput) errors.enqueueInput = "Link is required"
+    if (!crawlName) errors.crawlName = "Crawl name is required"
     //if (maxRequests < 1) errors.maxRequests = "Max requests must be greater than 0";
-    return errors;
-  };
+    return errors
+  }
 
   const handleEnqueueSubmit = async (e) => {
-    e.preventDefault();
-    const validationErrors = validate();
+    e.preventDefault()
+    const validationErrors = validate()
     if (Object.keys(validationErrors).length > 0) {
-      setErrors(validationErrors);
-      return;
+      setErrors(validationErrors)
+      return
     }
 
-    setEnqueueResult("Enqueuing...");
+    setEnqueueResult("Enqueuing...")
 
     try {
+      let parsedLinks = enqueueInput.split("\n").map((link) => link.trim())
       const response = await fetch("http://localhost:3000/enqueue", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          links: [enqueueInput],
+          links: parsedLinks,
           crawlName,
           maxRequests,
           reIndexDuplicates
         })
-      });
-      const data = await response.json();
-      setEnqueueResult(JSON.stringify(data, null, 2));
+      })
+      const data = await response.json()
+      popNotification(JSON.stringify(data, null, 2))
       if (data.crawlId) {
-        startLogStream(data.crawlId);
+        startLogStream(data.crawlId)
       }
     } catch (error) {
-      setEnqueueResult("<p>An error occurred</p>");
+      popNotification("<p>An error occurred</p>")
     }
-  };
+  }
 
   return (
     <>
       <form onSubmit={handleEnqueueSubmit}>
         <div className="input">
-          <input
-            type="text"
-            id="enqueue-input"
-            value={enqueueInput}
-            onChange={(e) => setEnqueueInput(e.target.value)}
-            placeholder="Link to enqueue"
+          <Textarea
+            className="textarea"
+            defaultValue=""
+            id="links"
+            name="links"
+            onChange={handleChange}
+            placeholder="Enter links"
+            ref={textareaRef}
           />
-          <label htmlFor="enqueue-input">Link</label>
-          {errors.enqueueInput && <span className="error">{errors.enqueueInput}</span>}
+          <label htmlFor="enqueue-input">Link(s): one per line</label>
+          {errors.enqueueInput && (
+            <span className="error">{errors.enqueueInput}</span>
+          )}
         </div>
         <div className="input">
           <input
@@ -74,7 +102,9 @@ const Enqueue = () => {
             placeholder="Name of this indexed crawl"
           />
           <label htmlFor="crawl-name">Name of this indexed crawl</label>
-          {errors.crawlName && <span className="error">{errors.crawlName}</span>}
+          {errors.crawlName && (
+            <span className="error">{errors.crawlName}</span>
+          )}
         </div>
         <div className="input">
           <input
@@ -94,7 +124,9 @@ const Enqueue = () => {
             placeholder="Max requests"
           />
           <label htmlFor="max-requests">Max requests</label>
-          {errors.maxRequests && <span className="error">{errors.maxRequests}</span>}
+          {errors.maxRequests && (
+            <span className="error">{errors.maxRequests}</span>
+          )}
         </div>
         <div className="input">
           <input
@@ -114,17 +146,20 @@ const Enqueue = () => {
           />
           <label htmlFor="re-index-duplicates">Re-index duplicates?</label>
         </div>
+        <div className="input">
+          <input
+            type="checkbox"
+            id="crawl-sitemap"
+            checked={crawlSitemap}
+            onChange={(e) => setCrawlSitemap(e.target.checked)}
+          />
+          <label htmlFor="re-index-duplicates">Crawl sitemap.xml?</label>
+        </div>
         <button type="submit">Enqueue</button>
       </form>
-      <div>
-        <span>Enqueuing result</span>
-        <code className="language-json">
-          <pre>{enqueueResult}</pre>
-        </code>
-      </div>
       <CrawlLog />
     </>
-  );
-};
+  )
+}
 
-export default Enqueue;
+export default Enqueue
