@@ -1,11 +1,11 @@
+import express from 'express';
 import cors from 'cors';
 import dotenv from 'dotenv';
-import express from 'express';
 import rateLimit from 'express-rate-limit';
 import fs from 'node:fs/promises';
 
 import enqueueCrawl from './lib/crawl.js';
-import { getStats, getUniqueCrawlNames, push, search } from './lib/database.js';
+import { getStats, push, search } from './lib/database.js';
 import { createLogEmitter, removeLogEmitter, writeLog } from './lib/log.js';
 import { errorHandler, notFoundHandler } from './lib/middlewares/error-handlers.js';
 import { validateEnqueue, validateSearch, validateSubmit } from './lib/validators.js';
@@ -16,26 +16,24 @@ dotenv.config();
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// Middleware to parse JSON
-app.use(express.json());
-
-// Middleware to enable CORS
-app.use(cors());
-app.use(errorHandler);
+// Combined middleware
+app.use([
+  express.json(),
+  cors(),
+  errorHandler,
+]);
 
 // Define rate limiter
 const limiter = rateLimit({
-  max: 100, 
-  message: "You've been ratelimited, motherfucker", 
+  max: 100,
+  message: "You've been ratelimited, motherfucker",
   windowMs: 15 * 60 * 1000
 });
 
-// Apply the rate limiter to all requests
-app.use(limiter);
-
-// Serve static files
-app.use('/', express.static('./front-end'));
-
+// Serve static files with cache control
+app.use('/', express.static('./front-end', {
+  maxAge: '1d',
+}));
 
 // Endpoint to submit items to Elasticsearch
 app.post("/submit", validateSubmit, async (request, response) => {
@@ -74,7 +72,7 @@ app.post("/enqueue", validateEnqueue, async (request, response) => {
 });
 
 // Endpoint to query Elasticsearch
-app.get("/search", validateSearch, async (request, response) => {
+app.get("/search", validateSearch, limiter, async (request, response) => {
   try {
     const { p, q } = request.query;
     const searchResponse = await search(q, p);
@@ -85,27 +83,16 @@ app.get("/search", validateSearch, async (request, response) => {
   }
 });
 
-app.post("/search", validateSearch, async (request, response) => {
-  const { q } = request.body;
-
-  try {
-    const searchResponse = await search(q);
-    response.status(200).json(searchResponse);
-  } catch (error) {
-    console.error("Error searching documents:", error);
-    response.status(500).json({ error: "Error searching documents" });
-  }
-});
-
-app.get("/stats",  async (request, response) => {
+app.get("/stats", async (request, response) => {
   try {
     const results = await getStats();
     response.status(200).json(results);
   } catch (error) {
-    console.error("Error searching documents:", error);
-    response.status(500).json({ error: "Error searching documents" });
+    console.error("Error getting stats:", error);
+    response.status(500).json({ error: "Error getting stats" });
   }
 });
+
 // SSE endpoint for real-time log updates for a specific crawl ID
 app.get('/logs/stream/:crawlId', (request, response) => {
   const { crawlId } = request.params;
