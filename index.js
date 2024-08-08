@@ -6,7 +6,7 @@ import fs from 'node:fs/promises';
 
 import enqueueCrawl from './lib/crawl.js';
 import { getStats, push, search } from './lib/database.js';
-import { createLogEmitter, removeLogEmitter, writeLog } from './lib/log.js';
+import { createLogEmitter, removeLogEmitter, log } from './lib/log.js';
 import { errorHandler, notFoundHandler } from './lib/middlewares/error-handlers.js';
 import { validateEnqueue, validateSearch, validateSubmit } from './lib/validators.js';
 
@@ -42,7 +42,7 @@ app.post("/submit", validateSubmit, async (request, response) => {
     const pushResponse = await push({ content, href, index, title });
     response.status(200).json(pushResponse);
   } catch (error) {
-    writeLog("Error indexing document:", error);
+    log.error("Error indexing document:", error);
     response.status(500).json({ error: "Error indexing document" });
   }
 });
@@ -63,10 +63,10 @@ app.post("/enqueue", validateEnqueue, async (request, response) => {
 
   try {
     const id = await enqueueCrawl({crawlName, links, maxRequests, reIndexDuplicates});
-    writeLog("Crawl started successfully");
+    log.info("Crawl started successfully");
     response.status(202).json({ crawlId: id, links, message: "Crawl started" });
   } catch (error) {
-    writeLog("Failed to start crawl:", error);
+    log.error("Failed to start crawl:", error);
     response.status(500).json({ message: `Failed to start crawl: ${error}` });
   }
 });
@@ -78,7 +78,7 @@ app.get("/search", validateSearch, limiter, async (request, response) => {
     const searchResponse = await search(q, p);
     response.status(200).json(searchResponse);
   } catch (error) {
-    writeLog("Error searching documents:", error);
+    log.error("Error searching documents:", error);
     response.status(500).json({ error: "Error searching documents" });
   }
 });

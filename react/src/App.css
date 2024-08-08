@@ -36,23 +36,6 @@
   font-family: "BPmono", monospace;
 }
 
-.input {
-    position: relative;
-    padding-bottom: 15px;
-}
-
-.input label {
-    font-size: .7em;
-    background: #efefef;
-    padding: 1px;
-    /* margin-top: -5px; */
-    border: 1px dotted #ffffff;
-    position: absolute;
-    left: 0;
-    bottom: 14px;
-    transform: translateY(97%);
-    /* margin-top: 1px; */
-}
 
 input#search-query {
     /* width: 80%; */

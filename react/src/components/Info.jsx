@@ -4,11 +4,16 @@ const Info = ({}) => {
   const [crawls, setCrawls] = useState([])
   const [totalDocs, setTotalDocs] = useState(0)
   const getInfo = async () => {
+    try {
     let resp = await fetch("http://localhost:3000/stats")
     let data = await resp.json()
     console.log(data)
     setCrawls(data.uniqueCrawlNames)
     setTotalDocs(data.totalDocuments)
+    }
+    catch(e) {
+      console.log(e)
+    }
   }
   useEffect(() => {
     getInfo()

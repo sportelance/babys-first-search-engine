@@ -15,10 +15,7 @@ const App = () => {
       <div className="header">
         <h3>Baby's First Search Engine</h3> <ApiStatus />
       </div>
-      <button
-        onClick={() => enqueueNotification("Test", "This is a test notification")}>
-        Test Notification
-      </button>
+
       <Tabs>
         <Search label="Search" />
         <Enqueue label="Enqueue" popNotification={enqueueNotification} />
