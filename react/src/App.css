@@ -239,7 +239,6 @@ section,
 aside,
 header,
 footer,
-nav,
 main {
   padding: 1rem;
   border: 1px solid var(--border-color);

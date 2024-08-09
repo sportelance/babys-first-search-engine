@@ -1,35 +1,24 @@
-.tab.active {
-  display: block;
 
-}
 .tab-buttons {
   display: flex;
   cursor: pointer;
+  list-style-type: none;
 }
-.tab-buttons div {
+.tab-buttons li {
   padding: 10px;
   border: 1px solid #ccc;
   border-bottom: none;
+  list-style-type: none;
+  margin: 0;
 }
-.tab-buttons div.active {
-  background-color: #ddd;
-}
-.tab.inactive {
-  position: absolute;
-  opacity: 0;
-  z-index:0;
-  transition: opacity 0.5s;
-}
-.tab.active {
-  position: relative;
-  opacity: 1;
-  z-index: 1;
-  transition: opacity 0.5s;
-}
-.tabs {
-  position: relative;
-  display: flex;
-  flex-direction: column;
-  width: 100%;
+.tab-buttons li a {
+  text-decoration: none;
+  color: var(--accent-color);
 
+}
+.tab-buttons li a:hover {
+  color: darken(var(--accent-color), 10%);
+} 
+.tab-buttons li.active {
+  background-color: #ddd;
 }
