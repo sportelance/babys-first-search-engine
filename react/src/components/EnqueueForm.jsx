@@ -22,14 +22,14 @@ const schema = {
     },
     maxDepth: {
       type: "integer",
-      title: "",
-      description: "Max depth",
+      title: "Max depth",
+      
       default: -1
     },
     maxRequests: {
       type: "integer",
-      title: "",
-      description: "Max requests",
+      title: "Max requests",
+      default: -1,
       minimum: 1
     },
     maxTime: {
@@ -41,17 +41,17 @@ const schema = {
     reIndexDuplicates: {
       type: "boolean",
       title: "Re-index duplicates?",
-      description: ""
+
     },
     crawlSitemap: {
       type: "boolean",
       title: "Crawl sitemap.xml?",
-      description: ""
     },
     logLevel: {
       type: "string",
-      title: "",
-      description: "Select log level",
+      title: "log level",
+      default: "INFO",
+      
       enum: ["DEBUG", "INFO", "WARN", "ERROR"]
     }
   }

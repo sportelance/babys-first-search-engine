@@ -36,3 +36,10 @@ input[type="number"] {
     transform: translateY(97%);
     /* margin-top: 1px; */
 }
+.checkbox label, .field-boolean label {
+    position: relative;
+}
+
+.checkbox label span {
+   display:none;
+}

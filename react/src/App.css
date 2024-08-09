@@ -207,6 +207,7 @@ input[type="checkbox"] {
   transform: scale(1.6);
   margin-right: 0.5rem;
   cursor: pointer;
+  display: block;
 }
 
 input[type="checkbox"] + label {
