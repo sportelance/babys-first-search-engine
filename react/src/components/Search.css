@@ -1,3 +1,6 @@
 button#search-submit {
     padding: .9em .7em;
 }
+.error {
+    color: var(--error);
+}

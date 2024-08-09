@@ -64,7 +64,7 @@ button::hover {
   --secondary: #eee;
   --grey: #50514f;
   --grey-glass: #7f7f7f21;
-  --red: rgba(242, 95, 92, 0.13);
+  --red: rgb(235 81 78);
   --purple: rgba(132, 92, 242, 0.2);
   --yellow: rgba(255, 224, 102, 0.48);
   --blue: #247ba0;

@@ -16,7 +16,7 @@ const Search = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [totalResults, setTotalResults] = useState(0);
   const [currentPage, setCurrentPage] = useState(initialPage);
-
+const [error, setError] = useState(null);
   const handleSearchSubmit = async (e) => {
     e.preventDefault();
     updateUrlParams(searchQuery, 1); // Reset to page 1 on new search
@@ -24,6 +24,7 @@ const Search = () => {
   };
 
   const search = async (query, page) => {
+    setError(null);
     setSearchResults([]);
     setTotalResults(0);
 
@@ -35,7 +36,7 @@ const Search = () => {
       setSearchResults(data.results);
       setTotalResults(data.totalResults);
     } catch (error) {
-      setSearchResults([{ title: "An error occurred", href: "#" }]);
+      setError(error);
     }
   };
 
@@ -70,7 +71,7 @@ const Search = () => {
         </button>
       </form>
 
-      {searchResults && searchResults.length > 0 ? (
+      {searchResults && searchResults.length > 0 && error === null ? (
         <div id="total-results">
           Total results: {totalResults}. Page {currentPage} /{" "}
           {Math.ceil(totalResults / 10)}
@@ -78,7 +79,7 @@ const Search = () => {
       ) : (
         <></>
       )}
-
+{error && <div className="error">{error.message}</div>}
       <SearchResults
         searchResults={searchResults}
         totalResults={totalResults}
