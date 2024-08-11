@@ -53,7 +53,48 @@ const schema = {
       default: "INFO",
       
       enum: ["DEBUG", "INFO", "WARN", "ERROR"]
-    }
+    },
+    fields: {
+      type: "object",
+      title: "Fields to index",
+      properties: {
+        title: {
+          type: "boolean",
+          title: "Title",
+          default: true
+        },
+        description: {
+          type: "boolean",
+          title: "Description",
+          default: true
+        },
+        images: {
+          type: "boolean",
+          title: "Images",
+          default: true
+        },
+        publisher: {
+          type: "boolean",
+          title: "Publisher",
+          default: true
+        },
+        date: {
+          type: "boolean",
+          title: "publish Date",
+          default: true
+        },
+        url: {
+          type: "boolean",
+          title: "URL",
+          default: true
+        },
+        logo: {
+          type: "boolean",
+          title: "Logo",
+          default: true
+        },
+      },
+    },
   }
 }
 const uiSchema = {

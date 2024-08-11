@@ -1,45 +1,57 @@
-
 form.rjsf {
-    display: block;
-  
-    width: 100%;
-   
-  }
-  fieldset {
-    display: flex;
-    flex-direction: row;
-    gap: 1em;
-    justify-content: flex-start;
-    align-items: center;
-  }
-input[type="number"] {
-    max-width:40px;
+  display: block;
+
+  width: 100%;
 }
-.input, .form-group {
-    position: relative;
-    padding-bottom: 15px;
+fieldset {
+  display: flex;
+  flex-direction: row;
+  gap: 1em;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+}
+input[type="number"] {
+  max-width: 40px;
+}
+.input,
+.form-group {
+  position: relative;
+  padding-bottom: 15px;
 }
 .field-description {
-    font-size: .7em;
-    color: #666;
-    margin:0px;
+  font-size: 0.7em;
+  color: #666;
+  margin: 0px;
 }
-.input label, .form-group label {
-    font-size: .7em;
+.input label,
+.form-group label {
+  font-size: 0.7em;
+  background: #efefef;
+  padding: 1px;
+  /* margin-top: -5px; */
+  border: 1px dotted #ffffff;
+  position: absolute;
+  left: 0;
+  bottom: 14px;
+  transform: translateY(97%);
+  /* margin-top: 1px; */
+}
+.checkbox label,
+.field-boolean label {
+  position: relative;
+}
+.field-object .field-object .checkbox label span {
+    display: flex;
+  }
+.checkbox label span {
+  display: none;
+}
+legend {
+    font-size: 0.7em;
     background: #efefef;
     padding: 1px;
     /* margin-top: -5px; */
     border: 1px dotted #ffffff;
-    position: absolute;
-    left: 0;
-    bottom: 14px;
-    transform: translateY(97%);
-    /* margin-top: 1px; */
-}
-.checkbox label, .field-boolean label {
-    position: relative;
-}
 
-.checkbox label span {
-   display:none;
 }

@@ -1,9 +1,9 @@
 .crawl-info {
-font-size: .7em;
-    color: #505050;
+  font-size: 0.7em;
+  color: #505050;
 }
 
 .top {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }

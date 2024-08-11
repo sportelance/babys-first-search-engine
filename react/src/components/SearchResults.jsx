@@ -24,11 +24,10 @@ const SingleResult = ({ index, href, title, crawlName, crawlId, meta }) => {
 }
 
 const SearchResults = ({ searchResults }) => {
-
   return (
     <div id="results">
       <ul>
-        {searchResults.map((result, index) => (
+        {searchResults && Array.isArray(searchResults) && searchResults.map((result, index) => (
           <SingleResult key={index} {...result} />
         ))}
       </ul>

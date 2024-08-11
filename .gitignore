@@ -3,6 +3,7 @@
 # Compiled source
 front-end
 logs
+esdata
 *.com
 *.class
 *.dll
