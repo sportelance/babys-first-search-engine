@@ -64,7 +64,7 @@ const Search = () => {
 
   return (
     <>
-      <form onSubmit={handleSearchSubmit}>
+      <form className="search-form" onSubmit={handleSearchSubmit}>
         <div className="input">
           <input
             type="text"
@@ -85,8 +85,12 @@ const Search = () => {
           {searchResults.length === 0 ?
             `No results found for "${searchQuery}".`
           : <>
-              Total results: {totalResults}. Page {currentPage} /{" "}
-              {Math.ceil(totalResults / 10)}
+              Total results: {totalResults}. 
+              {Math.ceil(totalResults / 10) > 1 && (
+             <> 
+             Page {currentPage} / {Math.ceil(totalResults / 10)}
+              </>
+              )}
             </>
           }
         </div>
@@ -102,7 +106,7 @@ const Search = () => {
           search(searchQuery, page) // Fetch new results when page changes
         }}
       />
-      <Pagination
+      {Math.ceil(totalResults / 10) > 1 && (<Pagination
         currentPage={currentPage}
         totalPages={Math.ceil(totalResults / 10)}
         setCurrentPage={(page) => {
@@ -110,7 +114,7 @@ const Search = () => {
           updateUrlParams(searchQuery, page)
           search(searchQuery, page) // Fetch new results when page changes
         }}
-      />
+      /> )}
     </>
   )
 }

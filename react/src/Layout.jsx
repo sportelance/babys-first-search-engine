@@ -1,6 +1,6 @@
 import React from "react"
 
-import {Outlet, Link, useLocation } from "react-router-dom"
+import { Outlet, Link, useLocation } from "react-router-dom"
 import "./components/Tabs.css"
 
 function Layout() {
@@ -22,4 +22,4 @@ function Layout() {
     </div>
   )
 }
-export default Layout;
+export default Layout

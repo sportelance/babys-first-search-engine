@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from "react"
 import "./NotificationQueue.css"
 
-const UseNotifications = () => {
+const UseNotifications = (notificationLength=3000) => {
   const [notifications, setNotifications] = useState([])
 
-  const enqueueNotification = (title, message) => {
-    if (!title || !message) {
-        return
+  const notify = (title, message) => {
+    if (!title && !message) {
+      return
     }
     if (!message) {
-        message = title
-        title = ""
+      message = title
+      title = ""
     }
     if (typeof title === "object") {
-        message = title.message
-        title = title.title
+      message = title.message
+      title = title.title
     }
     setNotifications((prev) => [...prev, { id: Date.now(), title, message }])
   }
@@ -23,7 +23,7 @@ const UseNotifications = () => {
       if (notifications.length > 0) {
         const timer = setTimeout(() => {
           setNotifications(notifications.slice(1))
-        }, 3000)
+        }, notificationLength)
         return () => clearTimeout(timer)
       }
     }, [notifications])
@@ -31,18 +31,22 @@ const UseNotifications = () => {
     return (
       <>
         <div className="notification-container">
-          {notifications.length > 0 && notifications.map((notification) => (
-            <div key={notification.id} className="notification">
-              <strong>{notification.title}</strong>
-              <p>{notification.message}</p>
-            </div>
-          ))}
+          {notifications.length > 0 &&
+            notifications.map((notification) => {
+              const { title, message, id } = notification
+              return (
+                <div key={id} className="notification">
+                  <strong>{title}</strong>
+                  <p>{message}</p>
+                </div>
+              )
+            })}
         </div>
       </>
     )
   }
 
-  return { Notifications, enqueueNotification }
+  return { Notifications, notify }
 }
 
 // Export the NotificationProvider and the useNotification hook

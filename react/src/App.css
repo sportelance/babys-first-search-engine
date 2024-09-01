@@ -36,25 +36,23 @@
   font-family: "BPmono", monospace;
 }
 
-
 input#search-query {
-    /* width: 80%; */
-    font-size: 1.15em;
+  /* width: 80%; */
+  font-size: 1.15em;
 }
 
 .container {
-    max-width: 900px;
-    width: 100%;
-    margin:0 auto;
+  max-width: 900px;
+  width: 100%;
+  margin: 0 auto;
 }
 
-
-button::after, input[type="submit"]::after {
- content: " →";
+button::after,
+input[type="submit"]::after {
+  content: " →";
 }
 button::hover {
-    transform: scale(1.1);
-    
+  transform: scale(1.1);
 }
 :root {
   --base-color: #fff;
@@ -77,13 +75,10 @@ button::hover {
   --good: var(--aqua);
 }
 
-html {}
-
 body {
   font-family: var(--font-family);
   color: var(--accent-color);
   background-color: var(--base-color);
-
 }
 
 h1,
@@ -98,15 +93,12 @@ h6 {
   text-transform: uppercase;
 }
 
-h3 {}
-
 h1 {
   font-size: 2rem;
 }
 
 a {
   color: var(--accent-color);
-
 }
 
 a:hover {
@@ -126,7 +118,7 @@ ol {
 }
 
 li {
-  margin: .5em 1em;
+  margin: 0.5em 1em;
   list-style: disc;
 }
 
@@ -138,7 +130,7 @@ form {
   justify-content: flex-start;
   display: inline-flex;
   width: 100%;
- 
+
   flex-direction: row;
   flex-wrap: wrap;
 }
@@ -174,32 +166,29 @@ button {
   /* flex: auto; */
   color: #2e2e2e;
   text-shadow: 1px 1px 1px #fff;
-  transition: all .25s ease-in-out;
+  transition: all 0.25s ease-in-out;
   cursor: pointer;
   font-style: italic;
 }
 
 button#search-button {
-    /* font-size: 1.15em; */
-    padding: .9em 1.1em;
+  padding: 0.9em 1.1em;
 }
 
-button {}
-
 button#submit-enqueue {
-    width: auto;
-    display: block;
-    /* display: inline-flex; */
-    width: min-content;
-    padding: .65em 1em;
-    /* flex: auto; */
+  width: auto;
+  display: block;
+  /* display: inline-flex; */
+  width: min-content;
+  padding: 0.65em 1em;
+  /* flex: auto; */
 }
 
 button:hover {
-    transform: scale(1.01) translate(-1px, -1px);
-    box-shadow: 3px 3px 1px #212020;
-   /* color: #2e2e2e; */
-    /* text-shadow: 1px 1px 1px #fff; */
+  transform: scale(1.01) translate(-1px, -1px);
+  box-shadow: 3px 3px 1px #212020;
+  /* color: #2e2e2e; */
+  /* text-shadow: 1px 1px 1px #fff; */
 }
 
 input[type="radio"],
@@ -211,9 +200,9 @@ input[type="checkbox"] {
 }
 
 input[type="checkbox"] + label {
-    position: relative;
-    clear: both;
-    display: block;
+  position: relative;
+  clear: both;
+  display: block;
 }
 
 input[type="submit"] {
@@ -230,9 +219,8 @@ pre {
   border-radius: 4px;
 }
 
-
 a {
-  color:#247ba0;
+  color: #247ba0;
 }
 
 article,
@@ -247,5 +235,5 @@ main {
 }
 
 #root {
-  width:100%;
+  width: 100%;
 }

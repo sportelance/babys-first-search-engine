@@ -4,3 +4,14 @@ button#search-submit {
 .error {
     color: var(--error);
 }
+.search-form {
+    margin-bottom:2em;
+
+}
+.search-form::after {
+    content: "";
+    display: block;
+    clear: both;
+    border-bottom: 1px dotted var(--grey-glass);
+    width: 100%;
+}
