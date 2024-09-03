@@ -20,7 +20,7 @@ const App = () => {
         <Route path="/" element={<Layout />}>
           <Route index element={<Search />} />
           <Route path="enqueue" element={<Enqueue notify={notify} />} />
-          <Route path="crawls" element={<Crawls />} />
+          <Route path="crawls" element={<Crawls notify={notify} />} />
         </Route>
       </Routes>
  

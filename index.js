@@ -1,131 +1,140 @@
-import express from "express"
-import cors from "cors"
-import dotenv from "dotenv"
-import rateLimit from "express-rate-limit"
-import fs from "node:fs/promises"
-
-import enqueueCrawl from "./lib/crawl.js"
-import { getStats, push, search, getAllCrawlswithDocuments } from "./lib/database.js"
-import { createLogEmitter, removeLogEmitter, log } from "./lib/log.js"
+import Fastify from 'fastify';
+import fastifyCors from '@fastify/cors';
+import fastifyRateLimit from '@fastify/rate-limit';
+import dotenv from 'dotenv';
+import fs from 'node:fs/promises';
+import path from 'node:path';
+import enqueueCrawl from './lib/crawl.js';
+import { push, search, getCrawlById } from './lib/database.js';
+import { createLogEmitter, removeLogEmitter, log } from './lib/log.js';
 import {
   errorHandler,
   notFoundHandler
-} from "./lib/middlewares/error-handlers.js"
+} from './lib/middlewares/error-handlers.js';
 import {
   validateEnqueue,
   validateSearch,
   validateSubmit
-} from "./lib/validators.js"
+} from './lib/validators.js';
 
 // Load environment variables from .env file
-dotenv.config()
+dotenv.config();
 
-const app = express()
-const PORT = process.env.PORT || 3000
+const fastify = Fastify();
+const PORT = process.env.PORT || 3000;
 
-// Combined middleware
-app.use([express.json(), cors(), errorHandler])
 
-// Define rate limiter
-const limiter = rateLimit({
+await fastify.register(fastifyCors);
+await fastify.register(fastifyRateLimit, {
   max: 100,
-  message: "You've been ratelimited, motherfucker",
-  windowMs: 15 * 60 * 1000
-})
+  timeWindow: '15 minutes',
+  errorResponseBuilder: () => ({
+    code: 429,
+    error: "Too Many Requests",
+    message: "You've been ratelimited, motherfucker"
+  })
+});
 
 // Serve static files with cache control
-app.use(
-  "/",
-  express.static("./front-end", {
-    maxAge: "1d"
-  })
-)
+fastify.register(import('@fastify/static'), {
+  root: path.resolve('./front-end'),
+  prefix: '/',
+  maxAge: '1d'
+});
+
+// Error handler middleware
+fastify.setErrorHandler(errorHandler);
+
+// Not found handler
+fastify.setNotFoundHandler(notFoundHandler);
 
 // Endpoint to submit items to Elasticsearch
-app.post("/submit", validateSubmit, async (request, response) => {
+fastify.post('/submit', { schema: validateSubmit }, async (request, reply) => {
   try {
-    const { content, href, index, title } = request.body
-    const pushResponse = await push({ content, href, index, title })
-    response.status(200).json(pushResponse)
+    const { content, href, index, title } = request.body;
+    const pushResponse = await push({ content, href, index, title });
+    reply.status(200).send(pushResponse);
   } catch (error) {
-    log.error("Error indexing document:", error)
-    response.status(500).json({ error: "Error indexing document" })
+    log.error('Error indexing document:', error);
+    reply.status(500).send({ error: 'Error indexing document' });
   }
-})
+});
 
 // Endpoint to read logs
-app.get("/logs", async (request, response) => {
+fastify.get('/logs', async (request, reply) => {
   try {
-    const logs = await fs.readFile("logs.txt", "utf8")
-    response.json({ logs })
+    const logs = await fs.readFile('logs.txt', 'utf8');
+    reply.send({ logs });
   } catch {
-    response.status(500).json({ error: "Error reading logs" })
+    reply.status(500).send({ error: 'Error reading logs' });
   }
-})
+});
 
 // Endpoint to enqueue crawl
-app.post("/enqueue", validateEnqueue, async (request, response) => {
-  const id = await enqueueCrawl(request.body)
-  log.info("Crawl started successfully")
-  response.status(202).json({ crawlId: id, message: "Crawl started" })
-})
+fastify.post('/enqueue', { schema: validateEnqueue }, async (request, reply) => {
+  const id = await enqueueCrawl(request.body);
+  log.info('Crawl started successfully');
+  reply.status(202).send({ crawlId: id, message: 'Crawl started' });
+});
 
 // Endpoint to query Elasticsearch
-app.get("/search", validateSearch, limiter, async (request, response) => {
+fastify.get('/search', { schema: validateSearch }, async (request, reply) => {
   try {
-    const { p, q } = request.query
-    const searchResponse = await search(q, p)
-    response.status(200).json(searchResponse)
+    const { p, q } = request.query;
+    const searchResponse = await search(q, p);
+    reply.status(200).send(searchResponse);
   } catch (error) {
-    log.error("Error searching documents:", error)
-    response.status(500).json({ error: "Error searching documents" })
+    log.error('Error searching documents:', error);
+    reply.status(500).send({ error: 'Error searching documents' });
   }
-})
-app.get("/alive", (request, response) => {
-  response.status(200).json({ alive: true })
-})
-app.get("/stats", async (request, response) => {
-  try {
-    const results = await getStats()
-    response.status(200).json(results)
-  } catch (error) {
-    console.error("Error getting stats:", error)
-    response.status(500).json({ error: "Error getting stats" })
-  }
-})
-app.get("/crawls", async (request, response) => {
-  try {
-    const results = await getAllCrawlswithDocuments()
-    response.status(200).json(results)
-  } catch (error) {
-    console.error("Error getting crawls:", error)
-    response.status(500).json({ error: "Error getting crawls" })
-  }
-})
-// SSE endpoint for real-time log updates for a specific crawl ID
-app.get("/logs/stream/:crawlId", (request, response) => {
-  const { crawlId } = request.params
-  const logEmitter = createLogEmitter(crawlId)
+});
 
-  response.setHeader("Content-Type", "text/event-stream")
-  response.setHeader("Cache-Control", "no-cache")
-  response.setHeader("Connection", "keep-alive")
-  response.flushHeaders() // flush the headers to establish SSE with the client
+fastify.get('/alive', async (request, reply) => {
+  reply.status(200).send({ alive: true });
+});
+
+
+
+fastify.get('/crawls/:crawlId', async (request, reply) => {
+
+  const { crawlId } = request.params;
+  console.log(crawlId);
+  const crawl = await getCrawlById(crawlId);
+  if (!crawl) {
+    reply.status(404).send({ error: 'Crawl not found' });
+  } else {
+    reply.status(200).send(crawl);
+  }
+});
+// SSE endpoint for real-time log updates for a specific crawl ID
+fastify.get('/logs/stream/:crawlId', async (request, reply) => {
+  const { crawlId } = request.params;
+  const logEmitter = createLogEmitter(crawlId);
+
+  reply.raw.setHeader('Content-Type', 'text/event-stream');
+  reply.raw.setHeader('Cache-Control', 'no-cache');
+  reply.raw.setHeader('Connection', 'keep-alive');
+  reply.raw.flushHeaders();
 
   const logListener = (log) => {
-    response.write(`data: ${JSON.stringify(log)}\n\n`)
-  }
+    reply.raw.write(`data: ${JSON.stringify(log)}\n\n`);
+  };
 
-  logEmitter.on("log", logListener)
+  logEmitter.on('log', logListener);
 
   // Remove listener and emitter on client disconnect
-  request.on("close", () => {
-    logEmitter.removeListener("log", logListener)
-    removeLogEmitter(crawlId)
-    response.end()
-  })
-})
+  request.raw.on('close', () => {
+    logEmitter.removeListener('log', logListener);
+    removeLogEmitter(crawlId);
+    reply.raw.end();
+  });
+});
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`)
-})
+// Start server
+fastify.listen({ port: PORT }, (err, address) => {
+  if (err) {
+    console.error('Error starting server:', err);
+    process.exit(1);
+  }
+  console.log(`Server is running on ${address}`);
+});
