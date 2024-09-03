@@ -12,18 +12,18 @@ const schema = {
     crawlName: {
       type: "string",
       title: "Name of this indexed crawl",
-      description: "",
-      minLength: 1
+      description: ""
     },
     maxDepth: {
       type: "integer",
       title: "Max depth",
-
+      description: "",
       default: -1
     },
     maxRequests: {
       type: "integer",
       title: "Max requests",
+      description: "",
       default: -1
     },
     maxTime: {
@@ -35,8 +35,7 @@ const schema = {
     maxRequestRetries: {
       type: "integer",
       title: "Max request retries",
-      default: 2,
-      minimum: 0
+      default: 2
     },
     requestHandlerTimeoutSecs: {
       type: "integer",

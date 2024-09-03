@@ -5,7 +5,7 @@ import rateLimit from "express-rate-limit"
 import fs from "node:fs/promises"
 
 import enqueueCrawl from "./lib/crawl.js"
-import { getStats, push, search } from "./lib/database.js"
+import { getStats, push, search, getAllCrawlswithDocuments } from "./lib/database.js"
 import { createLogEmitter, removeLogEmitter, log } from "./lib/log.js"
 import {
   errorHandler,
@@ -93,7 +93,15 @@ app.get("/stats", async (request, response) => {
     response.status(500).json({ error: "Error getting stats" })
   }
 })
-
+app.get("/crawls", async (request, response) => {
+  try {
+    const results = await getAllCrawlswithDocuments()
+    response.status(200).json(results)
+  } catch (error) {
+    console.error("Error getting crawls:", error)
+    response.status(500).json({ error: "Error getting crawls" })
+  }
+})
 // SSE endpoint for real-time log updates for a specific crawl ID
 app.get("/logs/stream/:crawlId", (request, response) => {
   const { crawlId } = request.params

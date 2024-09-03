@@ -1,7 +1,7 @@
 import React from "react"
 
 import { Outlet, Link, useLocation } from "react-router-dom"
-import "./components/Tabs.css"
+import "./components/Tabs.scss"
 
 function Layout() {
   const location = useLocation()
@@ -14,6 +14,9 @@ function Layout() {
           </li>
           <li className={`${location.pathname === "/enqueue" ? "active" : ""}`}>
             <Link to="enqueue">Enqueue</Link>
+          </li>
+          <li className={`${location.pathname === "/crawls" ? "active" : ""}`}>
+            <Link to="crawls">Crawls</Link>
           </li>
         </ul>
       </nav>

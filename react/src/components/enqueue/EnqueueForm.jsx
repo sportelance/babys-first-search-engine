@@ -14,7 +14,7 @@ const EnqueueForm = ({ onSubmit = function () {} }) => {
     <Form
       schema={schema}
       uiSchema={uiSchema}
-    validator={validator}
+      validator={validator}
       onChange={log("changed")}
       onSubmit={handleSubmit}
       onError={log("errors")}

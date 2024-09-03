@@ -1,17 +1,12 @@
-
-
-
 @mixin cool-label {
   font-size: 0.7em;
   background: #efefef;
   padding: 1px;
 
   border: 1px dotted #ffffff;
-  position: absolute;
-  left: 0;
-  bottom: 14px;
-  transform: translateY(97%);
- 
+  //position: absolute;
+
+
 }
 
 
@@ -20,6 +15,7 @@ form.rjsf {
 
   width: 100%;
 }
+
 fieldset {
   display: flex;
   flex-direction: row;
@@ -28,41 +24,66 @@ fieldset {
   align-items: center;
   flex-wrap: wrap;
 }
+
 input[type="number"] {
   max-width: 40px;
 }
+
+textarea {
+  display: flex;
+}
+
 .input,
 .form-group {
   position: relative;
-  padding-bottom: 15px;
+
 }
+.input {
+  display: flex;
+  flex-direction: column;
+}
+.form-group {
+  display: flex;
+  flex-direction: column;
+
+  label {
+    order: 4;
+  }
+
+  .checkbox label {
+    background: transparent;
+  }
+}
+
 .field-description {
   font-size: 0.7em;
   color: #666;
   margin: 0px;
 }
+
 .input label,
 .form-group label {
-@include cool-label;
+  @include cool-label;
 }
-.field-string .control-label {
-  bottom:19px;
-}
+
 .checkbox label,
 .field-boolean label {
   position: relative;
 }
+
 .field-object .field-object .checkbox label span {
-    display: flex;
-  }
+  display: flex;
+}
+
 .checkbox label span {
   display: none;
 }
+
 legend {
-    font-size: 0.7em;
-    background: #efefef;
-    padding: 1px;
-    /* margin-top: -5px; */
-    border: 1px dotted #ffffff;
+  font-size: 0.7em;
+  background: #efefef;
+  padding: 1px;
+  /* margin-top: -5px; */
+  border: 1px dotted #ffffff;
 
 }

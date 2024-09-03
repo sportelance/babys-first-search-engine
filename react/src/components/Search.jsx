@@ -79,7 +79,7 @@ const Search = () => {
           Go
         </button>
       </form>
-
+      <ErrorText message={error ? error.message : null} />
       {searchResults && error === null ?
         <div id="total-results">
           {searchResults.length === 0 ?
@@ -95,7 +95,7 @@ const Search = () => {
           }
         </div>
       : <></>}
-      <ErrorText message={error ? error.message : null} />
+     
       <SearchResults
         searchResults={searchResults}
         totalResults={totalResults}

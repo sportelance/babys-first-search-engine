@@ -1,0 +1,28 @@
+.tab-buttons {
+  display: flex;
+  cursor: pointer;
+  list-style-type: none;
+}
+
+.tab-buttons li {
+
+  border: 1px solid #ccc;
+  border-bottom: none;
+  list-style-type: none;
+  margin: 0;
+  &.active a {
+    background-color: #ddd;
+  }
+  a {
+    padding: 10px;
+    display: flex;
+    text-decoration: none;
+    color: var(--accent-color);
+    &:hover {
+      background-color: #bebebe
+    }
+  }
+}
+
+
+
