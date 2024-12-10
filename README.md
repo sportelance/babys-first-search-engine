@@ -61,7 +61,9 @@ Then, run the dev server:
 
 `npm run dev (or vite)`
 
-Then go to the url specified by vite in the terminal. It should be something like `localhost:3000`.
+Then go to the url specified by vite in the terminal. It should be something like `http://localhost:5173/`.
+
+Remember, this is a terrible piece of software, and it will probably fuck up.
 
 ### Thoughts/roadmap
 
