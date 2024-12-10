@@ -39,15 +39,29 @@ Get in there and install deps
 
 `cd babys-first-search-engine && npm install`
 
-Run server:
+check out the example env file: example.env. for local development, you can just copy it to a new file called .env. It's required for the api to know where elasticsearch is running. So, copy it:
 
-`node index.js`
+`cp example.env .env`
 
-Open a new tab and run docker compose to get elasticsearch running:
+Then, run elasticsearch in docker:
 
 `docker compose up -d`
 
-You should now be able to open `locahost:3000` in your browser and see the search engine.
+Run the api server:
+
+`node index.js`
+
+The api should now be running on port 3000. You can hit it with a browser or curl to see if it's working. 
+
+The front end is currently untethered from the api, and uses vite/react. To run it, cd into the "react" directory and install its packages:
+
+`npm install`
+
+Then, run the dev server:
+
+`npm run dev (or vite)`
+
+Then go to the url specified by vite in the terminal. It should be something like `localhost:3000`.
 
 ### Thoughts/roadmap
 
