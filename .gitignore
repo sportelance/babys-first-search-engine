@@ -1,6 +1,7 @@
 #wrangler (cf workers)
 .wrangler
 # Compiled source
+elastic
 front-end
 logs
 esdata
@@ -11,7 +12,7 @@ esdata
 *.exe
 *.o
 *.so
-*.env
+.env
 # Logs and databases
 *.log
 logs.txt
